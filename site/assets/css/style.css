@@ -180,12 +180,6 @@ section.tight { padding: 64px 0; }
 .sku-note { margin-top: 22px; text-align: center; font-size: .95rem; color: var(--ink-soft); }
 @media (max-width: 760px) { .cans { grid-template-columns: 1fr; } .can-card img { height: 260px; } }
 
-/* ---- Photo rows ---- */
-.photo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
-.photo-row figure img { border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid var(--forest); width: 100%; height: 440px; object-fit: cover; }
-.photo-row figcaption { margin-top: 10px; font-size: .8rem; color: var(--ink-soft); font-family: var(--font-caps); letter-spacing: .12em; text-transform: uppercase; }
-@media (max-width: 760px) { .photo-row { grid-template-columns: 1fr; } .photo-row figure img { height: 280px; } }
-
 /* ---- Pitch grid with icons ---- */
 .pitch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 48px; }
 @media (max-width: 860px) { .pitch-grid { grid-template-columns: 1fr; gap: 28px; } }
