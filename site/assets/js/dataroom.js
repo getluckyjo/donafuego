@@ -192,8 +192,8 @@
   function renderRevenue() {
     var host = document.getElementById('chartRevenue');
     if (!host || host.childNodes.length) return;
-    var vb = { w: 960, h: 380 };
-    var pad = { l: 62, r: 10, t: 16, b: 46 };
+    var vb = { w: 960, h: 300 };
+    var pad = { l: 56, r: 10, t: 20, b: 38 };
     var iw = vb.w - pad.l - pad.r, ih = vb.h - pad.t - pad.b;
     var max = 3200000; // headroom above Aug-26 total of ~2.98m
     var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Stacked bar chart of monthly revenue, RTD and bulk, June 2026 to December 2027' });
@@ -208,7 +208,7 @@
     });
 
     var n = MONTHS.length;
-    var slot = iw / n, bw = Math.min(30, slot * 0.62);
+    var slot = iw / n, bw = Math.min(38, slot * 0.8);
     var tip = null, wrap = host;
 
     MONTHS.forEach(function (m, i) {
@@ -220,9 +220,9 @@
       if (RTD[i] > 0) svg.appendChild(svgEl('rect', { x: x, y: yRtd, width: bw, height: rtdH, fill: C_GREEN, rx: 3 }));
       if (BULK[i] > 0) svg.appendChild(svgEl('rect', { x: x, y: yBulk, width: bw, height: bulkH, fill: C_CORAL, rx: 3 }));
 
-      // x labels: every 2nd month
-      if (i % 2 === 0) {
-        var t = svgEl('text', { x: x + bw / 2, y: vb.h - 14, 'text-anchor': 'middle', 'font-size': 11.5, fill: C_INK });
+      // x labels: quarterly
+      if (i % 3 === 0) {
+        var t = svgEl('text', { x: x + bw / 2, y: vb.h - 12, 'text-anchor': 'middle', 'font-size': 11.5, fill: C_INK });
         t.textContent = m;
         svg.appendChild(t);
       }
@@ -240,10 +240,10 @@
       svg.appendChild(hit);
     });
 
-    // annotation: opening order
+    // annotation: opening order (kept clear of the bars)
     var ax = pad.l + slot * 2 + slot / 2;
-    var at = svgEl('text', { x: ax + 12, y: y(2982750) + 2, 'font-size': 12, fill: C_GREEN, 'font-weight': 600 });
-    at.textContent = 'Checkers opening order — R2.29m';
+    var at = svgEl('text', { x: ax + 14, y: y(2982750) + 4, 'font-size': 12.5, fill: C_GREEN, 'font-weight': 600 });
+    at.textContent = 'Opening order · R2.29m';
     svg.appendChild(at);
 
     host.appendChild(svg);
@@ -253,8 +253,8 @@
   function renderCash() {
     var host = document.getElementById('chartCash');
     if (!host || host.childNodes.length) return;
-    var vb = { w: 960, h: 380 };
-    var pad = { l: 62, r: 14, t: 20, b: 46 };
+    var vb = { w: 960, h: 300 };
+    var pad = { l: 56, r: 14, t: 20, b: 38 };
     var iw = vb.w - pad.l - pad.r, ih = vb.h - pad.t - pad.b;
     var min = -2e6, max = 5.5e6;
     var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Line chart of cumulative cash position, June 2026 to December 2027' });
@@ -286,9 +286,9 @@
       svg.appendChild(t);
     });
 
-    // x labels every 2nd month
+    // x labels quarterly
     MONTHS.forEach(function (m, i) {
-      if (i % 2) return;
+      if (i % 3) return;
       var t = svgEl('text', { x: x(i), y: vb.h - 14, 'text-anchor': 'middle', 'font-size': 11.5, fill: C_INK });
       t.textContent = m;
       svg.appendChild(t);
