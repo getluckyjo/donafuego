@@ -46,7 +46,7 @@ body {
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
 }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: var(--forest); }
 
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
@@ -179,6 +179,15 @@ section.tight { padding: 64px 0; }
 .can-card .desc { font-size: .85rem; color: var(--ink-soft); margin-top: 6px; }
 .sku-note { margin-top: 22px; text-align: center; font-size: .95rem; color: var(--ink-soft); }
 @media (max-width: 760px) { .cans { grid-template-columns: 1fr; } .can-card img { height: 260px; } }
+
+/* ---- Section texture backgrounds ---- */
+.texture { position: relative; isolation: isolate; }
+.texture::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: var(--tex); background-size: cover; background-position: var(--tex-pos, center);
+  opacity: var(--tex-opacity, .13); pointer-events: none;
+}
+.texture > * { position: relative; }
 
 /* ---- Pitch grid with icons ---- */
 .pitch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 48px; }
