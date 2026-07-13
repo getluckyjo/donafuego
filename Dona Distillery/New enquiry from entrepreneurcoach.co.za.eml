@@ -1,0 +1,268 @@
+Delivered-To: leroux.johannes@gmail.com
+Received: by 2002:a17:906:81a:b0:bec:674f:725f with SMTP id e26csp1433709ejd;
+        Tue, 2 Jun 2026 06:41:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a07:b0:913:7bc8:79ac with SMTP id af79cd13be357-9153da2434fmr2356593085a.26.1780407678660;
+        Tue, 02 Jun 2026 06:41:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780407678; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Ahlg/AtcCS3iJoo61Pvs8QypH/Y5nCff+Mjr2PZdcIOEKp/w+ksyKyJ514f+vhRs4j
+         N/lwsZd7wv7AFa85XBo0P7gCGEDrPRo2+6/Xl0UOntRi4GkEOe9Fw+AQbaA3M8K1Q8Ua
+         UPYIqROMO3b2+k18l9+9sd5Y7/pxzu2cZ5qXkFp2X5i8yX06XIwgpyHr1nYym9ssy1ob
+         O0vsyP6bujUnb7Zuw/007oKHP5ARKHtmgyddsGCjPLjAogKX94mlMXSrHNfnp+4oJDcv
+         YT9X00VD3ufX/vtLuOrA+YpqOq6KPMjRF2CB6UCjf8C4AqBT4Bqe/L+Wa+wNC/LrnspL
+         u5Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:mime-version:to:reply-to:from:subject
+         :date:message-id:dkim-signature;
+        bh=JDQEg5iBhRcNo9WR1nGIAS9qVPKaO1hwCityt3q14WI=;
+        fh=tt+5o05skedOoy1k6ltV1hfiCZKzfe2RUyCkeF8/1Uk=;
+        b=DR1hVIAjhI+QbCDwjuylpN6D7nFB6RsoNDNRB8sQKe/b9OsS6WW7eblikvUA1oIujB
+         KGiGpq2FPojRWjMI6bCwK9/7XzTWDLqClqltWCOoNZrhJbidzDScupqX3jpVD686pfzO
+         dbH1xOXtUHawrdU5HoA8Wtqem98c+C7Tga1r4qHiIxwmnXUp53fJVHxqQmxpvwyNaKAs
+         LWNJ1jNEQoT2j8rDBIEBKvaXJaHqnNWL3j83+13lyi9YQiwFYAD6BgvEbRqEzdnyJkFF
+         6Ud5vK0lOBT1Y8knr/OQu8yKPxLS59qNM3sfFTnziZ+jjfxIiIqviz1uugAACJWA69x2
+         ebdA==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@formsubmit.co header.s=mail header.b=lvEI9OKf;
+       spf=pass (google.com: domain of submissions@formsubmit.co designates 192.99.70.154 as permitted sender) smtp.mailfrom=submissions@formsubmit.co;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=formsubmit.co
+Return-Path: <submissions@formsubmit.co>
+Received: from mail.safenote.co (mail.safenote.co. [192.99.70.154])
+        by mx.google.com with ESMTPS id af79cd13be357-9157940492dsi271451485a.105.2026.06.02.06.41.18
+        for <leroux.johannes@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 02 Jun 2026 06:41:18 -0700 (PDT)
+Received-SPF: pass (google.com: domain of submissions@formsubmit.co designates 192.99.70.154 as permitted sender) client-ip=192.99.70.154;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@formsubmit.co header.s=mail header.b=lvEI9OKf;
+       spf=pass (google.com: domain of submissions@formsubmit.co designates 192.99.70.154 as permitted sender) smtp.mailfrom=submissions@formsubmit.co;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=formsubmit.co
+Received: by mail.safenote.co (Postfix, from userid 33)
+	id D6C0E161895; Tue,  2 Jun 2026 09:41:17 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=formsubmit.co;
+	s=mail; t=1780407677;
+	bh=KreYdqpmcYkYCnu9R2uv+qMq6keDuGw8tJpIc7bvyHU=;
+	h=Date:Subject:From:Reply-To:To:From;
+	b=lvEI9OKf0Ec4Texe84yt69+4GuZkN7K4ZZg+h38ONle0zz+cDnf1I0LfMlrVz/Cqv
+	 JRghbc+z+UaUAvvYSARJ9m0emYeigL/Ju72uXoa3uEnqiReu4x9LVwzhlzAYhKQPeZ
+	 DHtbOQW5HKq6PhGHAmnACydFf0jhT7wTGSiot2OE=
+Received: from formsubmit.co (localhost [127.0.0.1])
+	by mail.safenote.co (Postfix) with SMTP id D1B3316188E
+	for <leroux.johannes@gmail.com>; Tue,  2 Jun 2026 09:41:17 -0400 (EDT)
+Message-ID: <9868581d21ad7f6b84ad77089cf691ba@formsubmit.co>
+Date: Tue, 02 Jun 2026 13:41:17 +0000
+Subject: New enquiry from entrepreneurcoach.co.za
+From: FormSubmit <submissions@formsubmit.co>
+Reply-To: danielle@dona.co.za
+To: leroux.johannes@gmail.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html lang=3D"en">
+<head>
+    <meta charset=3D"UTF-8"=
+>
+    <meta name=3D"viewport"
+          content=3D"width=3Ddevice-width=
+, user-scalable=3Dno, initial-scale=3D1.0, maximum-scale=3D1.0, minimum-sca=
+le=3D1.0">
+    <meta http-equiv=3D"X-UA-Compatible" content=3D"ie=3Dedge"=
+>
+    <title>Easy form endpoints for your HTML forms</title>
+</head>
+=
+<body>
+<p>Someone just submitted your form on https://www.entrepreneurcoa=
+ch.co.za/.</p>
+<p>Here's what they had to say:</p>
+
+<table style=3D"f=
+ont-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+            bor=
+der-collapse: collapse;
+            width: 100%;">
+    <tr>
+        <=
+th style=3D"border: 1px solid #ddd;
+            padding: 12px 8px;
+    =
+        text-align: left;
+            background-color: #354d91;
+      =
+      color: white;">Name</th>
+        <th style=3D"border: 1px solid #dd=
+d;
+            padding: 12px 8px;
+            text-align: left;
+     =
+       background-color: #354d91;
+            color: white;">Value</th>=
+
+    </tr>
+                        <tr>
+                <td style=3D"=
+border: 1px solid #ddd;
+            padding: 8px;"><strong>name</strong><=
+/td>
+                <td style=3D"border: 1px solid #ddd;
+            p=
+adding: 8px;">
+                                            <pre style=3D"=
+margin: 0;white-space: pre-wrap">Danielle Schoeman</pre>
+                =
+                    </td>
+            </tr>
+                           =
+     <tr>
+                <td style=3D"border: 1px solid #ddd;
+        =
+    padding: 8px;"><strong>email</strong></td>
+                <td style=
+=3D"border: 1px solid #ddd;
+            padding: 8px;">
+               =
+                             <pre style=3D"margin: 0;white-space: pre-wrap"=
+>danielle@dona.co.za</pre>
+                                    </td>
+  =
+          </tr>
+                                <tr>
+                <t=
+d style=3D"border: 1px solid #ddd;
+            padding: 8px;"><strong>sta=
+ge</strong></td>
+                <td style=3D"border: 1px solid #ddd;
+ =
+           padding: 8px;">
+                                            <p=
+re style=3D"margin: 0;white-space: pre-wrap">managing</pre>
+             =
+                       </td>
+            </tr>
+                        =
+        <tr>
+                <td style=3D"border: 1px solid #ddd;
+     =
+       padding: 8px;"><strong>offer</strong></td>
+                <td sty=
+le=3D"border: 1px solid #ddd;
+            padding: 8px;">
+             =
+                               <pre style=3D"margin: 0;white-space: pre-wra=
+p">founder-clinic</pre>
+                                    </td>
+     =
+       </tr>
+                                <tr>
+                <td s=
+tyle=3D"border: 1px solid #ddd;
+            padding: 8px;"><strong>time-o=
+ption-1</strong></td>
+                <td style=3D"border: 1px solid #ddd=
+;
+            padding: 8px;">
+                                         =
+   <pre style=3D"margin: 0;white-space: pre-wrap">2026-06-05T13:00</pre>
+=
+                                    </td>
+            </tr>
+           =
+                     <tr>
+                <td style=3D"border: 1px solid =
+#ddd;
+            padding: 8px;"><strong>time-option-2</strong></td>
+  =
+              <td style=3D"border: 1px solid #ddd;
+            padding: 8=
+px;">
+                                            <pre style=3D"margin: 0=
+;white-space: pre-wrap">2026-06-09T13:00</pre>
+                          =
+          </td>
+            </tr>
+                                <tr>=
+
+                <td style=3D"border: 1px solid #ddd;
+            paddi=
+ng: 8px;"><strong>timezone</strong></td>
+                <td style=3D"bor=
+der: 1px solid #ddd;
+            padding: 8px;">
+                      =
+                      <pre style=3D"margin: 0;white-space: pre-wrap">Cape T=
+own</pre>
+                                    </td>
+            </tr>=
+
+                                <tr>
+                <td style=3D"bord=
+er: 1px solid #ddd;
+            padding: 8px;"><strong>message</strong></=
+td>
+                <td style=3D"border: 1px solid #ddd;
+            pa=
+dding: 8px;">
+                                            <pre style=3D"m=
+argin: 0;white-space: pre-wrap">HI Johannes, I&#039;m the founder of Do=
+=C3=B1a Distillery, a 100% female-owned distillery based in Cape Town, we p=
+roduce alcohol and non alc beverages. We launched in 2019 and produce Mahal=
+a Botanical, Toor Whisky and Do=C3=B1a Fuego Tequila.
+We&#039;ve had some exciting growth over the last few years, including expo=
+rts, national distribution and most recently a national Checkers listing fo=
+r our Tequila based RTDs.
+I feel like I&#039;m at that stage where the business is growing faster tha=
+n my experience, and I&#039;d love to learn from someone who&#039;s been th=
+rough it before. I&#039;m particularly interested in brand positioning, mar=
+keting, building consumer demand, fundraising and figuring out how to scale=
+ the business without losing my mind in the process.
+I&#039;ve followed a bit of your journey and a lot of what you&#039;ve buil=
+t resonates with me, so I thought I&#039;d reach out and see if we&#039;d b=
+e a good fit to work together.
+Looking forward to chatting.</pre>
+                                    </=
+td>
+            </tr>
+                                                 =
+                       </table>
+<br>
+<p style=3D"text-align: center">Su=
+bmitted at Tue, Jun 2, 2026 1:41 PM (UTC)</p>
+<br>
+<div style=3D"backgr=
+ound-color: #e8edf3;
+            text-align: center;
+            border=
+-radius: 20px;
+            display: table;
+            margin: 0 auto 0=
+ auto;
+            font-family: Verdana, sans-serif;">
+    <p><a style=
+=3D"text-decoration: none;
+            color: #a9a9a9;
+            bord=
+er-bottom: 1px dotted #b8b8b8;" href=3D"https://formsubmit.co/sponsor">Spon=
+sor</a></p>
+    <p style=3D"padding: 0 25px 10px 25px;">
+        <img h=
+eight=3D"20px" src=3D"https://i.ibb.co/cJbZsgN/reply-solid.png" alt=3D"web =
+development services">
+        <b>Get web development services from an in=
+dustry expert,
+            <a style=3D"text-decoration: none;" href=3D"ht=
+tps://devrolabs.com/startups?ref=3Dformsubmit-email" target=3D"_blank">here=
+ =E2=86=92</a>
+        </b>
+    </p>
+</div>
+<br>
+<p>Your friends =
+from,</p>
+<a style=3D"text-decoration: none;" href=3D"https://formsubmit.=
+co"><strong>FormSubmit Team</strong></a>
+</body>
+</html>
+
