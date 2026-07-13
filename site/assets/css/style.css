@@ -182,22 +182,23 @@ section.tight { padding: 64px 0; }
 
 /* ---- Photo rows ---- */
 .photo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
-.photo-row figure img { border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid var(--forest); width: 100%; height: 380px; object-fit: cover; }
+.photo-row figure img { border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid var(--forest); width: 100%; height: 440px; object-fit: cover; }
 .photo-row figcaption { margin-top: 10px; font-size: .8rem; color: var(--ink-soft); font-family: var(--font-caps); letter-spacing: .12em; text-transform: uppercase; }
 @media (max-width: 760px) { .photo-row { grid-template-columns: 1fr; } .photo-row figure img { height: 280px; } }
 
 /* ---- Pitch grid with icons ---- */
-.pitch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 40px; }
-@media (max-width: 860px) { .pitch-grid { grid-template-columns: 1fr; } }
+.pitch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 48px; }
+@media (max-width: 860px) { .pitch-grid { grid-template-columns: 1fr; gap: 28px; } }
+.pitch-item { display: flex; gap: 20px; align-items: flex-start; }
 .picon {
-  width: 48px; height: 48px; border: 2px solid var(--forest); border-radius: 50%;
+  flex: none; width: 56px; height: 56px; border: 2px solid var(--forest); border-radius: 50%;
   display: grid; place-items: center; background: var(--white); color: var(--forest);
-  margin-bottom: 14px;
+  box-shadow: var(--shadow);
 }
 .picon.chilli { border-color: var(--chilli); color: var(--chilli); }
 .picon.coral { border-color: var(--coral-deep); color: var(--coral-deep); }
 .picon.leaf { border-color: var(--leaf); color: var(--leaf); }
-.picon svg { width: 24px; height: 24px; }
+.picon svg { width: 28px; height: 28px; }
 
 /* ---- Quote ---- */
 .pull-quote { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.3rem, 2.8vw, 2rem); line-height: 1.3; color: var(--cream); text-align: center; max-width: 22ch; margin: 0 auto; }
