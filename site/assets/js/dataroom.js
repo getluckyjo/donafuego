@@ -212,7 +212,6 @@
 
   var MONTHS = ['Jun 26','Jul','Aug','Sep','Oct','Nov','Dec','Jan 27','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   // From the financial model P&L rows 10 (bulk) and 17 (Checkers RTD), rands.
-  var BULK = [242000,369770,695750,453750,184885,907500,363000,904475,480701,589875,314600,440350,314600,480701,904475,839875,240350,1179750,771900];
   var RTD  = [0,0,2744410,0,1067270,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856];
   // Cashflow row 27 — cumulative cash position.
   var CASH = [-141450,-857469,-1598049,-344340,-464820,7766,678621,869878,1061135,1252391,1443648,1634905,1826161,2017418,2208675,2399931,2591188,2782445,2973702];
@@ -254,8 +253,8 @@
     var vb = { w: 960, h: 300 };
     var pad = { l: 56, r: 10, t: 20, b: 38 };
     var iw = vb.w - pad.l - pad.r, ih = vb.h - pad.t - pad.b;
-    var max = 3600000; // headroom above Aug-26 total of ~3.44m
-    var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Stacked bar chart of monthly revenue, cans in scope and supplier bulk, June 2026 to December 2027' });
+    var max = 3000000; // headroom above the Aug-26 opening order of R2.74m
+    var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Bar chart of monthly can revenue, June 2026 to December 2027' });
     var y = function (v) { return pad.t + ih - (v / max) * ih; };
 
     // gridlines + y labels
@@ -273,11 +272,8 @@
     MONTHS.forEach(function (m, i) {
       var x = pad.l + slot * i + (slot - bw) / 2;
       var rtdH = (RTD[i] / max) * ih;
-      var bulkH = (BULK[i] / max) * ih;
       var yRtd = pad.t + ih - rtdH;
-      var yBulk = yRtd - 2 - bulkH; // 2px surface gap between stacked segments
       if (RTD[i] > 0) svg.appendChild(svgEl('rect', { x: x, y: yRtd, width: bw, height: rtdH, fill: C_GREEN, rx: 3 }));
-      if (BULK[i] > 0) svg.appendChild(svgEl('rect', { x: x, y: yBulk, width: bw, height: bulkH, fill: C_CORAL, rx: 3 }));
 
       // x labels: quarterly
       if (i % 3 === 0) {
@@ -289,11 +285,10 @@
       // hover target (full column)
       var hit = svgEl('rect', { x: pad.l + slot * i, y: pad.t, width: slot, height: ih, fill: 'transparent' });
       hit.addEventListener('mousemove', function () {
+        if (RTD[i] <= 0) return;
         if (!tip) tip = makeTip(wrap);
-        var total = RTD[i] + BULK[i];
-        moveTip(tip, wrap, svg, pad.l + slot * i + slot / 2, Math.min(yBulk, yRtd), vb,
-          '<strong>' + m + (m.indexOf(' ') < 0 ? (i < 7 ? ' 26' : ' 27') : '') + '</strong> · ' + rands(total) +
-          '<br>Cans ' + rands(RTD[i]) + ' · Supplier bulk ' + rands(BULK[i]));
+        moveTip(tip, wrap, svg, pad.l + slot * i + slot / 2, yRtd, vb,
+          '<strong>' + m + (m.indexOf(' ') < 0 ? (i < 7 ? ' 26' : ' 27') : '') + '</strong> · ' + rands(RTD[i]));
       });
       hit.addEventListener('mouseleave', function () { if (tip) tip.style.opacity = 0; });
       svg.appendChild(hit);
@@ -301,7 +296,7 @@
 
     // annotation: opening order (kept clear of the bars)
     var ax = pad.l + slot * 2 + slot / 2;
-    var at = svgEl('text', { x: ax + 14, y: y(3440160) + 4, 'font-size': 12.5, fill: C_GREEN, 'font-weight': 600 });
+    var at = svgEl('text', { x: ax + 14, y: y(2744410) + 4, 'font-size': 12.5, fill: C_GREEN, 'font-weight': 600 });
     at.textContent = 'Opening order · R2.74m';
     svg.appendChild(at);
 
