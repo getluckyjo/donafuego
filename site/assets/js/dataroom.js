@@ -5,6 +5,16 @@
   var LS_KEY = 'df_nda_v1';
   var FORM_ENDPOINT = 'https://formsubmit.co/ajax/danielle@dona.co.za';
   var NDA_VERSION = 'DF-NDA-1.0';
+  // sha256 of the private-link key. Approved investors receive
+  // /dataroom?key=... by email; without it the form only requests access.
+  var KEY_HASH = 'ad4cfb8f704072ac8c575f2b9b025faed7efa5e5e9d672a73bec86653b963eb1';
+  var KEY_OK_FLAG = 'df_key_ok_v1';
+
+  function sha256Hex(str) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+      return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    });
+  }
 
   var gate = document.getElementById('gate');
   var dataroom = document.getElementById('dataroom');
@@ -49,19 +59,20 @@
     window.scrollTo(0, 0);
   }
 
-  function sendRecord(rec) {
-    // Acceptance record emailed to Doña. Fire-and-forget: access is not
-    // blocked on network success, the record is also kept in localStorage.
+  function sendRecord(rec, kind) {
+    // Record emailed to Doña. Fire-and-forget: the flow is not blocked on
+    // network success; unlocks are also kept in localStorage.
     var payload = {
-      _subject: 'Dataroom NDA accepted — ' + rec.name,
+      _subject: (kind === 'request' ? 'Dataroom ACCESS REQUEST — ' : 'Dataroom NDA accepted (entered) — ') + rec.name,
       _template: 'table',
       _captcha: 'false',
+      type: kind === 'request' ? 'Access request — approve by replying with the private dataroom link' : 'NDA accepted via private link; dataroom entered',
       name: rec.name,
       company: rec.company || '(none given)',
       email: rec.email,
       accepted_at: rec.acceptedAt,
       nda_version: rec.ndaVersion,
-      page: location.href
+      page: location.origin + location.pathname
     };
     try {
       fetch(FORM_ENDPOINT, {
@@ -70,6 +81,47 @@
         body: JSON.stringify(payload)
       }).catch(function () { /* recorded locally regardless */ });
     } catch (e) { /* no-op */ }
+  }
+
+  /* ---- private-link check (?key=...) ---- */
+  var keyApproved = false;
+  try { keyApproved = sessionStorage.getItem(KEY_OK_FLAG) === '1'; } catch (e) { /* no-op */ }
+
+  function applyGateMode() {
+    // Adjust gate copy + button for the current mode
+    var btn = document.getElementById('gateSubmit');
+    var intro = document.getElementById('gateIntro');
+    var hint = document.getElementById('gateHint');
+    if (keyApproved) {
+      if (btn) btn.textContent = 'Accept NDA & enter';
+      if (intro) intro.innerHTML = 'You’ve been invited to the Doña Fuego dataroom. Enter your details and accept the confidentiality agreement below — it’s generated with your name, and you’ll get a copy.';
+      if (hint) hint.textContent = 'Takes you straight in.';
+    }
+  }
+
+  function checkKeyParam() {
+    var m = location.search.match(/[?&]key=([^&]+)/);
+    if (!m) { applyGateMode(); return; }
+    sha256Hex(decodeURIComponent(m[1]).trim().toLowerCase()).then(function (hex) {
+      if (hex === KEY_HASH) {
+        keyApproved = true;
+        try { sessionStorage.setItem(KEY_OK_FLAG, '1'); } catch (e) { /* no-op */ }
+      }
+      applyGateMode();
+    }).catch(applyGateMode);
+  }
+
+  function showRequested(rec) {
+    var card = document.querySelector('.gate-card');
+    if (!card) return;
+    var esc = function (s) { return s.replace(/[<>&]/g, ''); };
+    card.innerHTML =
+      '<span class="eyebrow">Private &amp; confidential</span>' +
+      '<h1 class="display">Request received</h1>' +
+      '<p class="intro">Thanks, ' + esc(rec.name.split(' ')[0]) + ' — your access request and NDA acceptance have been sent to Doña Distillery. ' +
+      'Danielle will review it and email your <strong>private dataroom link</strong> to <strong>' + esc(rec.email) + '</strong>, usually within one business day.</p>' +
+      '<p class="gate-fineprint">Questions in the meantime? <a href="mailto:danielle@dona.co.za">danielle@dona.co.za</a></p>';
+    window.scrollTo(0, 0);
   }
 
   if (form) {
@@ -91,10 +143,17 @@
         acceptedAt: new Date().toISOString(),
         ndaVersion: NDA_VERSION
       };
+      if (!keyApproved) {
+        // no valid private link: record the request, don't unlock
+        sendRecord(rec, 'request');
+        showRequested(rec);
+        return;
+      }
       try { localStorage.setItem(LS_KEY, JSON.stringify(rec)); } catch (e) { /* private mode */ }
-      sendRecord(rec);
+      sendRecord(rec, 'entered');
       unlock(rec);
     });
+    checkKeyParam();
   }
 
   /* ---- printable NDA copy ---- */
@@ -196,7 +255,7 @@
     var pad = { l: 56, r: 10, t: 20, b: 38 };
     var iw = vb.w - pad.l - pad.r, ih = vb.h - pad.t - pad.b;
     var max = 3200000; // headroom above Aug-26 total of ~2.98m
-    var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Stacked bar chart of monthly revenue, RTD and bulk, June 2026 to December 2027' });
+    var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Stacked bar chart of monthly revenue, cans in scope and supplier bulk, June 2026 to December 2027' });
     var y = function (v) { return pad.t + ih - (v / max) * ih; };
 
     // gridlines + y labels
@@ -234,7 +293,7 @@
         var total = RTD[i] + BULK[i];
         moveTip(tip, wrap, svg, pad.l + slot * i + slot / 2, Math.min(yBulk, yRtd), vb,
           '<strong>' + m + (m.indexOf(' ') < 0 ? (i < 7 ? ' 26' : ' 27') : '') + '</strong> · ' + rands(total) +
-          '<br>RTD ' + rands(RTD[i]) + ' · Bulk ' + rands(BULK[i]));
+          '<br>Cans ' + rands(RTD[i]) + ' · Supplier bulk ' + rands(BULK[i]));
       });
       hit.addEventListener('mouseleave', function () { if (tip) tip.style.opacity = 0; });
       svg.appendChild(hit);
