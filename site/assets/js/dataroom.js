@@ -9,6 +9,7 @@
   // /dataroom?key=... by email; without it the form only requests access.
   var KEY_HASH = 'ad4cfb8f704072ac8c575f2b9b025faed7efa5e5e9d672a73bec86653b963eb1';
   var KEY_OK_FLAG = 'df_key_ok_v1';
+  var REQ_KEY = 'df_req_v1';
 
   function sha256Hex(str) {
     return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
@@ -45,6 +46,14 @@
     ['fName', 'fCompany', 'fEmail'].forEach(function (id) {
       document.getElementById(id).addEventListener('input', fillNda);
     });
+    try {
+      var prev = JSON.parse(localStorage.getItem(REQ_KEY));
+      if (prev && prev.name) {
+        document.getElementById('fName').value = prev.name;
+        document.getElementById('fCompany').value = prev.company || '';
+        document.getElementById('fEmail').value = prev.email;
+      }
+    } catch (e) { /* no-op */ }
     fillNda();
   }
 
@@ -99,6 +108,18 @@
     }
   }
 
+  function autoEnterFromRequest() {
+    // The visitor accepted the NDA when requesting access; with a valid
+    // private link their stored acceptance opens the dataroom directly.
+    var req = null;
+    try { req = JSON.parse(localStorage.getItem(REQ_KEY)); } catch (e) { /* no-op */ }
+    if (!req || !req.name) return false;
+    try { localStorage.setItem(LS_KEY, JSON.stringify(req)); } catch (e) { /* no-op */ }
+    sendRecord(req, 'entered');
+    unlock(req);
+    return true;
+  }
+
   function checkKeyParam() {
     var m = location.search.match(/[?&]key=([^&]+)/);
     if (!m) { applyGateMode(); return; }
@@ -106,6 +127,7 @@
       if (hex === KEY_HASH) {
         keyApproved = true;
         try { sessionStorage.setItem(KEY_OK_FLAG, '1'); } catch (e) { /* no-op */ }
+        if (!getRecord() && autoEnterFromRequest()) return;
       }
       applyGateMode();
     }).catch(applyGateMode);
@@ -144,7 +166,9 @@
         ndaVersion: NDA_VERSION
       };
       if (!keyApproved) {
-        // no valid private link: record the request, don't unlock
+        // no valid private link: record the request, don't unlock.
+        // Remember the details so the private link goes straight in later.
+        try { localStorage.setItem(REQ_KEY, JSON.stringify(rec)); } catch (e) { /* no-op */ }
         sendRecord(rec, 'request');
         showRequested(rec);
         return;
