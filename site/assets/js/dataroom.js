@@ -236,10 +236,10 @@
 
   var MONTHS = ['Jun 26','Jul','Aug','Sep','Oct','Nov','Dec','Jan 27','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   // From the financial model P&L rows 10 (bulk) and 17 (Checkers RTD), rands.
-  var RTD  = [0,0,2744410,0,1067270,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856];
+  var RTD  = [0,0,2744410,0,1067270,939367,939367,939367,939367,939367,402344,402344,402344,402344,402344,402344,939367,939367,939367];
   var BOT  = [60060,188654,46392,68736,66045,269163,36883,157258,137702,207824,608388,180379,85071,244162,48711,72173,69347,282621,38727];
   // Cashflow row 27 — cumulative cash position.
-  var CASH = [-133432,-803355,-1635017,-465687,-671354,-223020,353901,497335,634902,793506,1072280,1222650,1344428,1513933,1624803,1742712,1859773,2040816,2148691];
+  var CASH = [-133432,-803355,-1660017,-515687,-746353,-323019,497413,696401,889522,1103679,1813922,1858739,1874964,1938915,1944232,1956587,1592178,1828774,1992203];
 
   var C_GREEN = '#2E6B34', C_CORAL = '#C95F52', C_INK = '#5A574A', C_GRID = '#E5DCC6';
 
@@ -361,7 +361,7 @@
     svg.appendChild(svgEl('path', { d: d, fill: 'none', stroke: C_GREEN, 'stroke-width': 2.5, 'stroke-linejoin': 'round' }));
 
     // trough + end markers with 2px surface ring
-    [[2, CASH[2], 'Peak need −R1.64m · Aug 26', '#A00000'], [18, CASH[18], 'Dec 27 · R2.15m cash', C_GREEN]].forEach(function (a) {
+    [[2, CASH[2], 'Peak need −R1.66m · Aug 26', '#A00000'], [18, CASH[18], 'Dec 27 · R1.99m cash', C_GREEN]].forEach(function (a) {
       svg.appendChild(svgEl('circle', { cx: x(a[0]), cy: y(a[1]), r: 6.5, fill: a[3], stroke: '#fff', 'stroke-width': 2 }));
       var t = svgEl('text', { x: x(a[0]) + (a[0] < 10 ? 12 : -12), y: y(a[1]) + (a[0] < 10 ? 22 : -12), 'font-size': 12.5, 'font-weight': 600, fill: a[3], 'text-anchor': a[0] < 10 ? 'start' : 'end' });
       t.textContent = a[2];
