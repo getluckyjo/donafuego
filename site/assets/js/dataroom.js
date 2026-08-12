@@ -213,8 +213,9 @@
   var MONTHS = ['Jun 26','Jul','Aug','Sep','Oct','Nov','Dec','Jan 27','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   // From the financial model P&L rows 10 (bulk) and 17 (Checkers RTD), rands.
   var RTD  = [0,0,2744410,0,1067270,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856,670856];
+  var BOT  = [60060,188654,46392,68736,66045,269163,36883,157258,137702,207824,608388,180379,85071,244162,48711,72173,69347,282621,38727];
   // Cashflow row 27 — cumulative cash position.
-  var CASH = [-141450,-857469,-1598049,-344340,-464820,7766,678621,869878,1061135,1252391,1443648,1634905,1826161,2017418,2208675,2399931,2591188,2782445,2973702];
+  var CASH = [-123432,-782855,-1509517,-235187,-335854,217481,899401,1137835,1370402,1624006,1997779,2243150,2459928,2724433,2930303,3143212,3355273,3631316,3834190];
 
   var C_GREEN = '#2E6B34', C_CORAL = '#C95F52', C_INK = '#5A574A', C_GRID = '#E5DCC6';
 
@@ -253,8 +254,8 @@
     var vb = { w: 960, h: 300 };
     var pad = { l: 56, r: 10, t: 20, b: 38 };
     var iw = vb.w - pad.l - pad.r, ih = vb.h - pad.t - pad.b;
-    var max = 3000000; // headroom above the Aug-26 opening order of R2.74m
-    var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Bar chart of monthly can revenue, June 2026 to December 2027' });
+    var max = 3000000; // headroom above the Aug-26 opening order month (R2.79m)
+    var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Stacked bar chart of monthly revenue, cans and bottles, June 2026 to December 2027' });
     var y = function (v) { return pad.t + ih - (v / max) * ih; };
 
     // gridlines + y labels
@@ -272,8 +273,11 @@
     MONTHS.forEach(function (m, i) {
       var x = pad.l + slot * i + (slot - bw) / 2;
       var rtdH = (RTD[i] / max) * ih;
+      var botH = (BOT[i] / max) * ih;
       var yRtd = pad.t + ih - rtdH;
+      var yBot = yRtd - (RTD[i] > 0 ? 2 : 0) - botH;
       if (RTD[i] > 0) svg.appendChild(svgEl('rect', { x: x, y: yRtd, width: bw, height: rtdH, fill: C_GREEN, rx: 3 }));
+      if (BOT[i] > 0) svg.appendChild(svgEl('rect', { x: x, y: yBot, width: bw, height: botH, fill: C_CORAL, rx: 3 }));
 
       // x labels: quarterly
       if (i % 3 === 0) {
@@ -285,10 +289,10 @@
       // hover target (full column)
       var hit = svgEl('rect', { x: pad.l + slot * i, y: pad.t, width: slot, height: ih, fill: 'transparent' });
       hit.addEventListener('mousemove', function () {
-        if (RTD[i] <= 0) return;
         if (!tip) tip = makeTip(wrap);
-        moveTip(tip, wrap, svg, pad.l + slot * i + slot / 2, yRtd, vb,
-          '<strong>' + m + (m.indexOf(' ') < 0 ? (i < 7 ? ' 26' : ' 27') : '') + '</strong> · ' + rands(RTD[i]));
+        moveTip(tip, wrap, svg, pad.l + slot * i + slot / 2, yBot, vb,
+          '<strong>' + m + (m.indexOf(' ') < 0 ? (i < 7 ? ' 26' : ' 27') : '') + '</strong> · ' + rands(RTD[i] + BOT[i]) +
+          '<br>Cans ' + rands(RTD[i]) + ' · Bottles ' + rands(BOT[i]));
       });
       hit.addEventListener('mouseleave', function () { if (tip) tip.style.opacity = 0; });
       svg.appendChild(hit);
@@ -310,12 +314,12 @@
     var vb = { w: 960, h: 300 };
     var pad = { l: 56, r: 14, t: 20, b: 38 };
     var iw = vb.w - pad.l - pad.r, ih = vb.h - pad.t - pad.b;
-    var min = -2e6, max = 3.5e6;
+    var min = -2e6, max = 4e6;
     var svg = svgEl('svg', { viewBox: '0 0 ' + vb.w + ' ' + vb.h, role: 'img', 'aria-label': 'Line chart of cumulative cash position, June 2026 to December 2027' });
     var y = function (v) { return pad.t + ih - ((v - min) / (max - min)) * ih; };
     var x = function (i) { return pad.l + (i / (CASH.length - 1)) * iw; };
 
-    [-2e6, 0, 2e6].forEach(function (v) {
+    [-2e6, 0, 2e6, 4e6].forEach(function (v) {
       svg.appendChild(svgEl('line', { x1: pad.l, x2: vb.w - pad.r, y1: y(v), y2: y(v), stroke: v === 0 ? '#B9AE93' : C_GRID, 'stroke-width': v === 0 ? 2 : 1 }));
       var t = svgEl('text', { x: pad.l - 10, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: C_INK });
       t.textContent = v === 0 ? '0' : (v < 0 ? '−R' : 'R') + Math.abs(v / 1e6) + 'm';
@@ -333,7 +337,7 @@
     svg.appendChild(svgEl('path', { d: d, fill: 'none', stroke: C_GREEN, 'stroke-width': 2.5, 'stroke-linejoin': 'round' }));
 
     // trough + end markers with 2px surface ring
-    [[2, CASH[2], 'Peak need −R1.60m · Aug 26', '#A00000'], [18, CASH[18], 'Dec 27 · R2.97m cash', C_GREEN]].forEach(function (a) {
+    [[2, CASH[2], 'Peak need −R1.51m · Aug 26', '#A00000'], [18, CASH[18], 'Dec 27 · R3.83m cash', C_GREEN]].forEach(function (a) {
       svg.appendChild(svgEl('circle', { cx: x(a[0]), cy: y(a[1]), r: 6.5, fill: a[3], stroke: '#fff', 'stroke-width': 2 }));
       var t = svgEl('text', { x: x(a[0]) + (a[0] < 10 ? 12 : -12), y: y(a[1]) + (a[0] < 10 ? 22 : -12), 'font-size': 12.5, 'font-weight': 600, fill: a[3], 'text-anchor': a[0] < 10 ? 'start' : 'end' });
       t.textContent = a[2];
