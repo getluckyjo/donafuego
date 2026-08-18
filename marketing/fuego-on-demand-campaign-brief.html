@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fuego On Demand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #EEECE1;
+    --surface: #FAF9F2;
+    --surface-raised: #FFFFFF;
+    --ink: #1E241E;
+    --ink-soft: #5B5F52;
+    --ink-faint: #8B8E7F;
+    --line: rgba(30, 36, 30, 0.13);
+    --line-strong: rgba(30, 36, 30, 0.22);
+    --fuego: #C0401D;
+    --fuego-soft: #C0401D1a;
+    --margarita: #62842A;
+    --margarita-soft: #62842A1a;
+    --paloma: #C64B67;
+    --paloma-soft: #C64B671a;
+    --callout-bg: #E7E2D0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171C15;
+      --surface: #1E241C;
+      --surface-raised: #242B21;
+      --ink: #ECEBDF;
+      --ink-soft: #AFB39F;
+      --ink-faint: #7B8071;
+      --line: rgba(236, 235, 223, 0.14);
+      --line-strong: rgba(236, 235, 223, 0.24);
+      --fuego: #E37548;
+      --fuego-soft: #E375481f;
+      --margarita: #9AC85A;
+      --margarita-soft: #9AC85A1f;
+      --paloma: #E981A0;
+      --paloma-soft: #E981A01f;
+      --callout-bg: #2B3126;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #171C15;
+    --surface: #1E241C;
+    --surface-raised: #242B21;
+    --ink: #ECEBDF;
+    --ink-soft: #AFB39F;
+    --ink-faint: #7B8071;
+    --line: rgba(236, 235, 223, 0.14);
+    --line-strong: rgba(236, 235, 223, 0.24);
+    --fuego: #E37548;
+    --fuego-soft: #E375481f;
+    --margarita: #9AC85A;
+    --margarita-soft: #9AC85A1f;
+    --paloma: #E981A0;
+    --paloma-soft: #E981A01f;
+    --callout-bg: #2B3126;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4.5rem 1.75rem 6rem;
+  }
+
+  .display {
+    font-family: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .eyebrow {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Masthead */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding-bottom: 2.75rem;
+    border-bottom: 2px solid var(--line-strong);
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  h1.display {
+    font-size: clamp(2.6rem, 8vw, 4.4rem);
+    line-height: 0.94;
+    margin: 0.4rem 0 0;
+    color: var(--ink);
+  }
+
+  h1.display .fire { color: var(--fuego); }
+
+  .tagline {
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  .tagline strong { color: var(--ink); font-weight: 600; }
+
+  .meta-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .meta-item .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .meta-item .value {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .meta-item .value.fire { color: var(--fuego); }
+
+  /* Sections */
+  section {
+    padding: 2.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+    margin-bottom: 1.4rem;
+  }
+
+  .section-head .eyebrow { padding-top: 0.2rem; }
+
+  h2.display {
+    font-size: 1.7rem;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .section-body {
+    grid-column: 2 / 3;
+  }
+
+  .lede {
+    color: var(--ink-soft);
+    max-width: 58ch;
+    margin: 0 0 1.4rem;
+  }
+
+  /* Budget bar */
+  .budget-bar {
+    display: flex;
+    width: 100%;
+    height: 2.75rem;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+  }
+
+  .budget-seg { height: 100%; }
+
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.4rem;
+  }
+
+  .budget-table td, .budget-table th {
+    text-align: left;
+    padding: 0.65rem 0.5rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+
+  .budget-table th {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .budget-table .swatch {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 2px;
+    margin-right: 0.55rem;
+    vertical-align: middle;
+  }
+
+  .budget-table .amount {
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .budget-table tfoot td {
+    border-bottom: none;
+    border-top: 2px solid var(--line-strong);
+    font-weight: 700;
+    padding-top: 0.85rem;
+  }
+
+  /* Angle cards */
+  .angles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+
+  @media (max-width: 600px) {
+    .angles { grid-template-columns: 1fr; }
+    .section-head { grid-template-columns: 1fr; gap: 0.4rem; }
+    .section-body { grid-column: 1 / 2; }
+  }
+
+  .angle-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--tag-color, var(--fuego));
+    padding: 1.4rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .angle-card.margarita { --tag-color: var(--margarita); }
+  .angle-card.paloma { --tag-color: var(--paloma); }
+
+  .angle-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tag-color);
+  }
+
+  .angle-line {
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.28rem;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .angle-meta {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .angle-meta b { color: var(--ink); font-weight: 600; }
+
+  /* Pillars list */
+  .pillars {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pillar {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 600px) {
+    .pillar { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+
+  .pillar:first-child { border-top: none; }
+
+  .pillar-name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .pillar-desc {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  /* Shot list */
+  .shotlist {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shot-row {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 1rem;
+    padding: 0.95rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .shot-row:first-child { border-top: none; }
+
+  .shot-num {
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+    padding-top: 0.2rem;
+  }
+
+  .shot-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+
+  .shot-name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .shot-tags {
+    display: inline-flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.16rem 0.45rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .tag.priority-must { color: var(--fuego); border-color: var(--fuego); }
+  .tag.angle-margarita { color: var(--margarita); border-color: var(--margarita); }
+  .tag.angle-paloma { color: var(--paloma); border-color: var(--paloma); }
+
+  .shot-desc {
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+    margin: 0.3rem 0 0;
+  }
+
+  /* ROI */
+  .roi-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.6rem;
+  }
+
+  .roi-table th, .roi-table td {
+    text-align: right;
+    padding: 0.65rem 0.5rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+
+  .roi-table th:first-child, .roi-table td:first-child {
+    text-align: left;
+  }
+
+  .roi-table th {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .roi-table td.target { color: var(--fuego); font-weight: 600; }
+
+  .roi-table tfoot td {
+    border-bottom: none;
+    border-top: 2px solid var(--line-strong);
+    font-weight: 700;
+    padding-top: 0.85rem;
+  }
+
+  .roi-note {
+    font-size: 0.87rem;
+    color: var(--ink-faint);
+    max-width: 60ch;
+    margin: 0 0 1.8rem;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .kpi-tile {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 1rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .kpi-value {
+    font-family: "JetBrains Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--fuego);
+  }
+
+  .kpi-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  /* Targeting grid */
+  .targeting-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .targeting-grid { grid-template-columns: 1fr; }
+  }
+
+  .targeting-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 1.1rem 1.15rem;
+  }
+
+  .targeting-card .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  .targeting-card p {
+    margin: 0;
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+  }
+
+  /* Callouts */
+  .callout {
+    background: var(--callout-bg);
+    border-left: 3px solid var(--fuego);
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .callout .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fuego);
+    font-weight: 700;
+  }
+
+  .callout p { margin: 0; color: var(--ink); font-size: 0.95rem; }
+  .callout p.sub { color: var(--ink-soft); margin-top: 0.15rem; }
+
+  /* Measurement */
+  .measure-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .measure-cols { grid-template-columns: 1fr; }
+  }
+
+  .measure-col .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .measure-col ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .measure-col li { margin-bottom: 0.4rem; }
+  .measure-col li b { color: var(--ink); font-weight: 600; }
+
+  footer {
+    padding-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+  }
+
+  a { color: var(--fuego); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .angle-card, .targeting-card { transition: border-color 0.15s ease; }
+  }
+</style>
+
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="eyebrow">Campaign brief · Instagram → Sixty60</span>
+      <span class="eyebrow mono">R10,000 / month</span>
+    </div>
+    <h1 class="display">Fuego <span class="fire">On</span> Demand</h1>
+    <p class="tagline"><strong>Margaritas to your door in 60 minutes.</strong> Palomas on demand. A always-on Instagram push that sends the Checkers cooler box straight to a Sixty60 basket.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="label">Brand</span>
+        <span class="value">Doña Fuego · 250ml, 7% ABV</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">Channel</span>
+        <span class="value">Checkers Sixty60 exclusive</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">Monthly spend</span>
+        <span class="value fire mono">R10,000</span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Budget</span>
+      <h2 class="display">Where the R10K goes</h2>
+    </div>
+    <div class="section-body">
+      <p class="lede">Media spend only — the shoot is budgeted separately. Weighted toward paid reach, with a standing slot to back whatever's already working organically.</p>
+
+      <div class="budget-bar">
+        <div class="budget-seg" style="width: 70%; background: var(--fuego);"></div>
+        <div class="budget-seg" style="width: 15%; background: var(--margarita);"></div>
+        <div class="budget-seg" style="width: 10%; background: var(--paloma);"></div>
+        <div class="budget-seg" style="width: 5%; background: var(--ink-faint);"></div>
+      </div>
+
+      <table class="budget-table">
+        <thead>
+          <tr><th>Line item</th><th class="amount">Monthly</th><th class="amount">Share</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="swatch" style="background: var(--fuego);"></span>Meta paid media — Reels &amp; Story ads, geo-fenced to Sixty60 zones</td>
+            <td class="amount mono">R7,000</td>
+            <td class="amount mono">70%</td>
+          </tr>
+          <tr>
+            <td><span class="swatch" style="background: var(--margarita);"></span>Micro/nano-influencer product gifting, 3–5 creators</td>
+            <td class="amount mono">R1,500</td>
+            <td class="amount mono">15%</td>
+          </tr>
+          <tr>
+            <td><span class="swatch" style="background: var(--paloma);"></span>Boost the week's best-performing organic Reel</td>
+            <td class="amount mono">R1,000</td>
+            <td class="amount mono">10%</td>
+          </tr>
+          <tr>
+            <td><span class="swatch" style="background: var(--ink-faint);"></span>Buffer — creative testing, promo-code tracking</td>
+            <td class="amount mono">R500</td>
+            <td class="amount mono">5%</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Total</td><td class="amount mono">R10,000</td><td class="amount mono">100%</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Ad angles</span>
+      <h2 class="display">Two always-on lines</h2>
+    </div>
+    <div class="section-body">
+      <p class="lede">Each closes on a Story link sticker + link-in-bio straight to the Sixty60 listing — not a general Checkers search.</p>
+      <div class="angles">
+        <div class="angle-card margarita">
+          <span class="angle-tag">Margarita</span>
+          <span class="angle-line">To your door in 60 min</span>
+          <div class="angle-meta">
+            <span><b>When:</b> Thu–Sat, midday–early evening</span>
+            <span><b>Occasion:</b> braai, cooler box, weekend day-drinking</span>
+          </div>
+        </div>
+        <div class="angle-card paloma">
+          <span class="angle-tag">Paloma</span>
+          <span class="angle-line">On demand — order now</span>
+          <div class="angle-meta">
+            <span><b>When:</b> Weekdays, 17:00–19:00</span>
+            <span><b>Occasion:</b> sundowner, load-shedding save, after-work</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Shoot list</span>
+      <h2 class="display">What the footage needs to do</h2>
+    </div>
+    <div class="section-body">
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar-name">Cooler box, not bar cart</span>
+          <span class="pillar-desc">Condensation, ice, salt rim — shot in a cooler box next to a braai, not styled on a bar. This is the "share of cooler box" fight against Brutal Fruit and Bernini.</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar-name">Cool serving suggestions</span>
+          <span class="pillar-desc">A 15-second serve Reel — over crushed ice, in a salt-rimmed glass, or straight from the can. It's already made; this just shows the best way to drink it.</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar-name">Occasion before product</span>
+          <span class="pillar-desc">Open on the braai, the sundowner, the load-shedding save — the can and the 60-minute delivery are the payoff, not the headline.</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar-name">UGC repost slot</span>
+          <span class="pillar-desc">Reserve a weekly slot for gifted-creator content — feeds the "1,000 Top Fans" file directly.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Shot list</span>
+      <h2 class="display">Backyard braai — shoot day</h2>
+    </div>
+    <div class="section-body">
+      <p class="lede">One location, one afternoon into dusk. Ordered for shoot flow — prep and product first, action and people once the fire's going, hero/cover shots as the light drops. <span class="tag priority-must" style="display:inline-block; vertical-align:middle;">Must</span> shots carry the campaign; <span class="tag" style="display:inline-block; vertical-align:middle;">Nice</span> shots are coverage.</p>
+
+      <div class="shotlist">
+        <div class="shot-row">
+          <span class="shot-num mono">01</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Establishing wide</span>
+              <span class="shot-tags">
+                <span class="tag">Photo + video</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Golden hour. Braai smoke drifting, cooler box in the foreground, friends soft-focus behind. This is the occasion, not the product — sets up every ad.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">02</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Cooler box hero</span>
+              <span class="shot-tags">
+                <span class="tag">Photo</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Lid open, cans nested in ice. One can sharp and foregrounded, condensation beading on the label. The "share of cooler box" shot.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">03</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Hand-in-ice reach</span>
+              <span class="shot-tags">
+                <span class="tag angle-margarita">Macro</span>
+                <span class="tag">Nice</span>
+              </span>
+            </div>
+            <p class="shot-desc">Tight crop, hand pulling a can from the ice, water dripping off the edge.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">04</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Crack &amp; pour</span>
+              <span class="shot-tags">
+                <span class="tag">Video, slow-mo</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Can crack, pour into a salt-rimmed glass over ice. The single most re-usable clip across both ad angles and Stories.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">05</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Salt rim &amp; lime prep</span>
+              <span class="shot-tags">
+                <span class="tag angle-margarita">Margarita</span>
+                <span class="tag">Nice</span>
+              </span>
+            </div>
+            <p class="shot-desc">Macro — rim being salted, lime wedge and can on a board. Feeds the serving-suggestions Reel.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">06</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Grapefruit prep</span>
+              <span class="shot-tags">
+                <span class="tag angle-paloma">Paloma</span>
+                <span class="tag">Nice</span>
+              </span>
+            </div>
+            <p class="shot-desc">Macro — grapefruit halved and wedged, coral light. Paloma's answer to shot 05.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">07</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Cheers moment</span>
+              <span class="shot-tags">
+                <span class="tag">Photo + video</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Two cans or glasses clinking, braai coals glowing behind, dusk light. Carries the UGC repost slot.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">08</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Phone-out order</span>
+              <span class="shot-tags">
+                <span class="tag">Photo + video</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Someone checking the Sixty60 app, order confirmation on screen, braai soft-focus behind. The actual CTA moment — this is what "on demand" looks like.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">09</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Delivery arrival</span>
+              <span class="shot-tags">
+                <span class="tag">Video</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Sixty60 bag handed over at the gate, host receiving it mid-laugh. Pairs with an on-screen countdown/timestamp graphic — proof of the 60-minute promise.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">10</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Overhead flat-lay</span>
+              <span class="shot-tags">
+                <span class="tag">Photo</span>
+                <span class="tag">Nice</span>
+              </span>
+            </div>
+            <p class="shot-desc">Top-down: tongs, coals, cans, limes and grapefruit, salt. Feed-grid filler and thumbnail stock.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">11</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Group candid</span>
+              <span class="shot-tags">
+                <span class="tag">Photo + video</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Friends around the fire, can in hand, mid-laugh. Handheld, natural light — deliberately not gimballed. This is the one that should look like it wasn't shot for an ad.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">12</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Vertical b-roll pack</span>
+              <span class="shot-tags">
+                <span class="tag">Video, 9:16</span>
+                <span class="tag priority-must">Must</span>
+              </span>
+            </div>
+            <p class="shot-desc">Cutdown-ready clips of 03, 04, 07 and 11 reshot or reframed vertical. This is the raw material every Reel and Story gets cut from — budget the most shoot time here.</p>
+          </div>
+        </div>
+
+        <div class="shot-row">
+          <span class="shot-num mono">13</span>
+          <div>
+            <div class="shot-title-row">
+              <span class="shot-name">Sunset silhouette</span>
+              <span class="shot-tags">
+                <span class="tag">Photo + video</span>
+                <span class="tag">Nice</span>
+              </span>
+            </div>
+            <p class="shot-desc">Wide, backlit, cans or glasses in silhouette as the fire dies down. Cover-image candidate for the grid and for the deck.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Production</span>
+      <h2 class="display">Shoot budget</h2>
+    </div>
+    <div class="section-body">
+      <p class="lede">A one-time production cost, separate from the R10,000/month media spend — one location, one afternoon into dusk, covering all 13 shots above.</p>
+
+      <table class="budget-table">
+        <thead>
+          <tr><th>Line item</th><th class="amount">Low</th><th class="amount">High</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hybrid photo/video shooter, half-day</td>
+            <td class="amount mono">R4,000</td>
+            <td class="amount mono">R7,000</td>
+          </tr>
+          <tr>
+            <td>Editing — Reels-ready vertical cutdowns</td>
+            <td class="amount mono">R2,000</td>
+            <td class="amount mono">R3,500</td>
+          </tr>
+          <tr>
+            <td>Styling &amp; props — ice, citrus, salt, braai extras</td>
+            <td class="amount mono">R1,000</td>
+            <td class="amount mono">R1,500</td>
+          </tr>
+          <tr>
+            <td>Talent — friends at a real braai, thanked in product</td>
+            <td class="amount mono">R0</td>
+            <td class="amount mono">R0</td>
+          </tr>
+          <tr>
+            <td>Location — someone's actual backyard</td>
+            <td class="amount mono">R0</td>
+            <td class="amount mono">R0</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Total</td><td class="amount mono">R8,000</td><td class="amount mono">R12,000</td></tr>
+        </tfoot>
+      </table>
+      <p class="roi-note">Scale to R15,000–20,000 only if splitting photographer and videographer into two people, or adding a second location or occasion — not needed for this round. Paid talent or a rented "lifestyle" location works against the authenticity shot 11 is built for.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Influencer gifting</span>
+      <h2 class="display">Who gets the box</h2>
+    </div>
+    <div class="section-body">
+      <p class="lede">R1,500/month covers product and courier for 3–5 creators — a gifting relationship, not a paid-post fee. At this budget, fit and engagement rate matter more than follower count.</p>
+
+      <div class="measure-cols">
+        <div class="measure-col">
+          <div class="label">Fit criteria</div>
+          <ul>
+            <li><b>Geography</b> — Cape Town or Joburg metro, inside Sixty60 coverage. A great creator with a Durban audience is off-target here.</li>
+            <li><b>Size</b> — 8,000–60,000 followers. Nano to micro, gifting-viable.</li>
+            <li><b>Content</b> — braai, home entertaining, cocktails/mixology. Not a general lifestyle account posting one drink.</li>
+            <li><b>Engagement</b> — ≥3% on recent posts, weighted above reach.</li>
+          </ul>
+        </div>
+        <div class="measure-col">
+          <div class="label">Before sending product</div>
+          <ul>
+            <li>Check engagement rate across the <b>last 10 posts</b>, not a single viral outlier.</li>
+            <li>Audience location split confirms a real <b>Sixty60-zone</b> following.</li>
+            <li>No conflicting or exclusive <b>alcohol brand</b> partnerships.</li>
+            <li>Comments read as real conversation, not bot replies.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 1.2rem;">
+        <span class="label">What gets sent</span>
+        <p>One mixed 4-pack — margarita and paloma — with a one-line brief: "show us your cooler box moment." No script, natural mention only, plus usage rights to repost into the UGC slot. Same 18+/drink-responsibly standard as the paid creative applies to whatever they post.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Targeting</span>
+      <h2 class="display">Who sees it</h2>
+    </div>
+    <div class="section-body">
+      <div class="targeting-grid">
+        <div class="targeting-card">
+          <div class="label">Age</div>
+          <p>18+ only — legal drinking age gate, required for Meta alcohol ad review.</p>
+        </div>
+        <div class="targeting-card">
+          <div class="label">Geography</div>
+          <p>Geo-fenced to suburbs with both a stocking Checkers and Sixty60 coverage. No spend where the 60-minute promise can't be kept.</p>
+        </div>
+        <div class="targeting-card">
+          <div class="label">Interest layer</div>
+          <p>Braai &amp; outdoor living, cocktails, food-delivery app users.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Compliance</span>
+      <h2 class="display">Before spend goes live</h2>
+    </div>
+    <div class="section-body">
+      <div class="callout">
+        <span class="label">Alcohol ad rules</span>
+        <p>Age-gate every ad set and expect Meta's alcohol ad review. South Africa's ARB code expects a "Not for sale to persons under 18 — drink responsibly" line burned into the creative itself, not buried in a caption.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Measurement</span>
+      <h2 class="display">What tells us it's working</h2>
+    </div>
+    <div class="section-body">
+      <div class="measure-cols">
+        <div class="measure-col">
+          <div class="label">Leading</div>
+          <ul>
+            <li>Story link-sticker <b>clicks</b></li>
+            <li><b>Saves</b> and shares on recipe/occasion Reels</li>
+          </ul>
+        </div>
+        <div class="measure-col">
+          <div class="label">Lagging</div>
+          <ul>
+            <li>Sixty60 <b>sell-through</b> in targeted stores</li>
+            <li><b>Replenishment</b> velocity vs. non-targeted stores</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Open question</span>
+      <h2 class="display">Confirm before launch</h2>
+    </div>
+    <div class="section-body">
+      <div class="callout">
+        <span class="label">Sixty60 deep link</span>
+        <p>Does Sixty60 support a direct link to the Doña Fuego listing, or does the ad have to land on a search results page?</p>
+        <p class="sub">Worth checking with the Checkers buyer relationship before creative locks — it's the difference between a one-tap order and a search-and-hope.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Projected</span>
+      <h2 class="display">What R10K should return</h2>
+    </div>
+    <div class="section-body">
+      <p class="lede">Modelled from the R8,000 paid-media line (ads + boost) at a R55–70 CPM. Two scenarios, not a promise — Sixty60's own order data will replace these estimates after month one.</p>
+
+      <table class="roi-table">
+        <thead>
+          <tr><th>Funnel stage</th><th>Conservative</th><th>Target</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Estimated reach</td><td class="mono">115,000</td><td class="mono target">145,000</td></tr>
+          <tr><td>Link clicks (1.0% / 1.5% CTR)</td><td class="mono">~1,150</td><td class="mono target">~2,175</td></tr>
+          <tr><td>Orders (3% / 5% conversion)</td><td class="mono">~35</td><td class="mono target">~110</td></tr>
+          <tr><td>Revenue (~R95–110 blended AOV)</td><td class="mono">~R3,300</td><td class="mono target">~R12,000</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Direct ROAS on paid media</td><td class="mono">0.4×</td><td class="mono target">1.5×</td></tr>
+        </tfoot>
+      </table>
+
+      <p class="roi-note">Last-click ROAS understates the real return — it can't see organic reach, UGC reposts, or store sell-through outside the geo-fenced test area. Treat month one as calibration, not the verdict.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile">
+          <span class="kpi-value">≥1.2%</span>
+          <span class="kpi-label">Link CTR target</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-value">≥4%</span>
+          <span class="kpi-label">Click → order conversion</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-value">80/mo</span>
+          <span class="kpi-label">Break-even orders (~R100 AOV)</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-value">1.5×+</span>
+          <span class="kpi-label">Direct ROAS, month 3+</span>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 1.8rem;">
+        <span class="label">The reorder multiplier</span>
+        <p>Single-order ROAS undersells a product people put in the cooler box every weekend. If an acquired customer reorders just <b>3 times in the 3 months</b> after their first Sixty60 order — 4 purchases total at the same ~R110 blended AOV — the real return looks nothing like the month-one number above.</p>
+      </div>
+
+      <table class="roi-table" style="margin-top: 1.2rem;">
+        <thead>
+          <tr><th>Per customer, 3 months</th><th>Conservative</th><th>Target</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost to acquire one order</td><td class="mono">R229</td><td class="mono target">R73</td></tr>
+          <tr><td>Revenue — 1 initial + 3 reorders</td><td class="mono">R440</td><td class="mono target">R440</td></tr>
+          <tr><td>3-month ROAS</td><td class="mono">1.9×</td><td class="mono target">6.0×</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Real 3-month ROI</td><td class="mono">92%</td><td class="mono target">503%</td></tr>
+        </tfoot>
+      </table>
+      <p class="roi-note">CAC = the month's R8,000 paid spend ÷ orders from the scenarios above (R8,000/35 and R8,000/110). Reorders assumed at the same blended AOV through Sixty60's own "buy again" flow, at no added media cost — this line depends entirely on real repeat-purchase behaviour, which only Sixty60's order data can confirm.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Fuego On Demand — campaign brief</span>
+    <span class="mono">Prepared 18 Aug 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
