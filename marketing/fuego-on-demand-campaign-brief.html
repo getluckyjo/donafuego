@@ -339,6 +339,41 @@
     font-size: 0.96rem;
   }
 
+  /* Reference mood grid */
+  .reference-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    .reference-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .reference-tile {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .reference-tile canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    background: #0c0c0c;
+  }
+
+  .reference-tile figcaption {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
   /* Shot list */
   .shotlist {
     display: flex;
@@ -720,6 +755,26 @@
     <div class="section-body">
       <p class="lede">Eight creative, good-looking friends. Unlimited Doña Fuego. Eight disposable film cameras and one 90s camcorder, rolling from the first can to the last. Nobody directs a frame — the brief per camera is one line, because the whole point is that none of it looks shot for an ad.</p>
 
+      <div class="reference-grid">
+        <figure class="reference-tile">
+          <canvas data-ref="flash" width="480" height="360"></canvas>
+          <figcaption>Flash, close — the pour</figcaption>
+        </figure>
+        <figure class="reference-tile">
+          <canvas data-ref="fire" width="480" height="360"></canvas>
+          <figcaption>Braai glow, no flash</figcaption>
+        </figure>
+        <figure class="reference-tile">
+          <canvas data-ref="cooler" width="480" height="360"></canvas>
+          <figcaption>Cooler box, blue-lit</figcaption>
+        </figure>
+        <figure class="reference-tile">
+          <canvas data-ref="camcorder" width="480" height="360"></canvas>
+          <figcaption>Camcorder — timestamp &amp; scanlines</figcaption>
+        </figure>
+      </div>
+      <p class="roi-note" style="margin-top: 0.6rem; margin-bottom: 1.8rem;">Reference mood, not real shots — grain, flash falloff, and the camcorder's timestamp are the aesthetic to hit. Actual frames come from the shoot.</p>
+
       <div class="shotlist">
         <div class="shot-row">
           <span class="shot-num mono">01</span>
@@ -1080,6 +1135,219 @@
   </footer>
 
 </div>
+
+<script>
+(function () {
+  function grainPattern(ctx) {
+    var n = document.createElement('canvas');
+    n.width = 96; n.height = 96;
+    var nctx = n.getContext('2d');
+    var img = nctx.createImageData(96, 96);
+    for (var i = 0; i < img.data.length; i += 4) {
+      var v = Math.random() * 255;
+      img.data[i] = v; img.data[i + 1] = v; img.data[i + 2] = v;
+      img.data[i + 3] = Math.random() * 55;
+    }
+    nctx.putImageData(img, 0, 0);
+    return ctx.createPattern(n, 'repeat');
+  }
+
+  function vignette(ctx, w, h, strength) {
+    var g = ctx.createRadialGradient(w * 0.5, h * 0.48, h * 0.2, w * 0.5, h * 0.5, h * 0.78);
+    g.addColorStop(0, 'rgba(0,0,0,0)');
+    g.addColorStop(1, 'rgba(0,0,0,' + strength + ')');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  function grain(ctx, w, h) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'overlay';
+    ctx.fillStyle = grainPattern(ctx);
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+
+  function drawFlash(ctx, w, h) {
+    ctx.fillStyle = '#070604';
+    ctx.fillRect(0, 0, w, h);
+
+    var flash = ctx.createRadialGradient(w * 0.38, h * 0.42, 4, w * 0.38, h * 0.42, h * 0.62);
+    flash.addColorStop(0, 'rgba(255,232,196,0.95)');
+    flash.addColorStop(0.45, 'rgba(255,190,120,0.35)');
+    flash.addColorStop(1, 'rgba(255,190,120,0)');
+    ctx.fillStyle = flash;
+    ctx.fillRect(0, 0, w, h);
+
+    // can silhouette
+    ctx.fillStyle = 'rgba(10,8,6,0.92)';
+    ctx.beginPath();
+    ctx.roundRect(w * 0.22, h * 0.34, w * 0.14, h * 0.5, 6);
+    ctx.fill();
+
+    // pour stream
+    ctx.strokeStyle = 'rgba(255,225,170,0.85)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.37, h * 0.4);
+    ctx.quadraticCurveTo(w * 0.5, h * 0.5, w * 0.58, h * 0.7);
+    ctx.stroke();
+
+    // glass silhouette
+    ctx.fillStyle = 'rgba(10,8,6,0.85)';
+    ctx.beginPath();
+    ctx.moveTo(w * 0.5, h * 0.68);
+    ctx.lineTo(w * 0.68, h * 0.68);
+    ctx.lineTo(w * 0.63, h * 0.95);
+    ctx.lineTo(w * 0.55, h * 0.95);
+    ctx.closePath();
+    ctx.fill();
+
+    grain(ctx, w, h);
+    vignette(ctx, w, h, 0.6);
+  }
+
+  function drawFire(ctx, w, h) {
+    var bg = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#0a0705');
+    bg.addColorStop(0.55, '#1c0e05');
+    bg.addColorStop(1, '#5a1f06');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    var glow = ctx.createRadialGradient(w * 0.5, h * 0.95, 10, w * 0.5, h * 0.9, h * 0.6);
+    glow.addColorStop(0, 'rgba(255,140,40,0.85)');
+    glow.addColorStop(1, 'rgba(255,140,40,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, w, h);
+
+    // embers
+    for (var i = 0; i < 22; i++) {
+      var ex = Math.random() * w;
+      var ey = h * 0.55 + Math.random() * h * 0.4;
+      var r = Math.random() * 1.6 + 0.4;
+      ctx.fillStyle = 'rgba(255,' + (140 + Math.random() * 80 | 0) + ',60,' + (0.4 + Math.random() * 0.5) + ')';
+      ctx.beginPath();
+      ctx.arc(ex, ey, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // braai grate hint
+    ctx.strokeStyle = 'rgba(5,3,2,0.6)';
+    ctx.lineWidth = 3;
+    for (var gx = 0; gx < 5; gx++) {
+      ctx.beginPath();
+      ctx.moveTo(w * (0.15 + gx * 0.18), h * 0.98);
+      ctx.lineTo(w * (0.1 + gx * 0.18), h * 0.75);
+      ctx.stroke();
+    }
+
+    grain(ctx, w, h);
+    vignette(ctx, w, h, 0.55);
+  }
+
+  function drawCooler(ctx, w, h) {
+    var bg = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#040a0c');
+    bg.addColorStop(1, '#0d2630');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    var glow = ctx.createRadialGradient(w * 0.5, h * 0.5, 10, w * 0.5, h * 0.5, h * 0.7);
+    glow.addColorStop(0, 'rgba(140,210,230,0.4)');
+    glow.addColorStop(1, 'rgba(140,210,230,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, w, h);
+
+    // ice chunks
+    for (var i = 0; i < 14; i++) {
+      var ix = w * 0.15 + Math.random() * w * 0.7;
+      var iy = h * 0.35 + Math.random() * h * 0.5;
+      var s = 8 + Math.random() * 16;
+      ctx.fillStyle = 'rgba(210,240,245,' + (0.25 + Math.random() * 0.35) + ')';
+      ctx.beginPath();
+      ctx.roundRect(ix, iy, s, s * 0.7, 2);
+      ctx.fill();
+    }
+
+    // can silhouettes nested in ice
+    ctx.fillStyle = 'rgba(4,8,9,0.85)';
+    ctx.beginPath();
+    ctx.roundRect(w * 0.4, h * 0.42, w * 0.12, h * 0.4, 5);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.roundRect(w * 0.56, h * 0.5, w * 0.12, h * 0.35, 5);
+    ctx.fill();
+
+    grain(ctx, w, h);
+    vignette(ctx, w, h, 0.55);
+  }
+
+  function drawCamcorder(ctx, w, h) {
+    var bg = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#141a12');
+    bg.addColorStop(1, '#050705');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    var glow = ctx.createRadialGradient(w * 0.55, h * 0.4, 10, w * 0.55, h * 0.4, h * 0.65);
+    glow.addColorStop(0, 'rgba(255,170,90,0.3)');
+    glow.addColorStop(1, 'rgba(255,170,90,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, w, h);
+
+    // group silhouette hint
+    ctx.fillStyle = 'rgba(3,4,3,0.85)';
+    for (var i = 0; i < 4; i++) {
+      var px = w * (0.28 + i * 0.14);
+      ctx.beginPath();
+      ctx.ellipse(px, h * 0.78, w * 0.045, h * 0.14, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(px, h * 0.6, w * 0.028, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    grain(ctx, w, h);
+
+    // scanlines
+    ctx.fillStyle = 'rgba(0,0,0,0.28)';
+    for (var y = 0; y < h; y += 3) {
+      ctx.fillRect(0, y, w, 1);
+    }
+
+    // slight green cast
+    ctx.fillStyle = 'rgba(80,140,90,0.06)';
+    ctx.fillRect(0, 0, w, h);
+
+    vignette(ctx, w, h, 0.5);
+
+    // REC indicator
+    ctx.fillStyle = 'rgba(255,60,50,0.9)';
+    ctx.beginPath();
+    ctx.arc(w * 0.08, h * 0.09, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(235,235,225,0.85)';
+    ctx.font = '600 13px "JetBrains Mono", monospace';
+    ctx.fillText('REC', w * 0.13, h * 0.1 + 4);
+
+    // timestamp
+    ctx.fillStyle = 'rgba(235,235,225,0.85)';
+    ctx.font = '600 13px "JetBrains Mono", monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText('18 08 96  19:42:07', w * 0.95, h * 0.93);
+    ctx.textAlign = 'left';
+  }
+
+  var renderers = { flash: drawFlash, fire: drawFire, cooler: drawCooler, camcorder: drawCamcorder };
+
+  document.querySelectorAll('canvas[data-ref]').forEach(function (canvas) {
+    var ctx = canvas.getContext('2d');
+    var fn = renderers[canvas.getAttribute('data-ref')];
+    if (fn) fn(ctx, canvas.width, canvas.height);
+  });
+})();
+</script>
 
 </body>
 </html>
