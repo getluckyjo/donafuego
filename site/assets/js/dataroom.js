@@ -243,33 +243,11 @@
 
   var C_GREEN = '#2E6B34', C_CORAL = '#C95F52', C_INK = '#5A574A', C_GRID = '#E5DCC6';
 
-  function svgEl(tag, attrs) {
-    var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
-    for (var k in attrs) el.setAttribute(k, attrs[k]);
-    return el;
-  }
-  function rands(v) {
-    var a = Math.abs(v);
-    var s = a >= 1e6 ? (a / 1e6).toFixed(a >= 1e7 ? 1 : 2) + 'm' : Math.round(a / 1000) + 'k';
-    return (v < 0 ? '−R' : 'R') + s;
-  }
-
-  function makeTip(wrapper) {
-    var tip = document.createElement('div');
-    tip.className = 'chart-tip';
-    wrapper.appendChild(tip);
-    return tip;
-  }
-  function moveTip(tip, wrapper, svg, xInSvg, yInSvg, vb, html) {
-    var r = wrapper.getBoundingClientRect();
-    var sr = svg.getBoundingClientRect();
-    var px = sr.left - r.left + (xInSvg / vb.w) * sr.width;
-    var py = sr.top - r.top + (yInSvg / vb.h) * sr.height;
-    tip.innerHTML = html;
-    tip.style.left = px + 'px';
-    tip.style.top = py + 'px';
-    tip.style.opacity = 1;
-  }
+  /* Drawing primitives are shared with the dashboard — see assets/js/charts.js. */
+  var svgEl   = DFCharts.svgEl;
+  var rands   = DFCharts.rands;
+  var makeTip = DFCharts.makeTip;
+  var moveTip = DFCharts.moveTip;
 
   /* ---- stacked monthly revenue bars ---- */
   function renderRevenue() {

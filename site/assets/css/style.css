@@ -322,3 +322,88 @@ details.faq .faq-body { padding: 0 20px 18px; color: var(--ink-soft); }
   .print-nda .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
   .print-nda .sig-cell { border-top: 1px solid #000; padding-top: 6px; }
 }
+
+/* ==========================================================================
+   Live dashboard (/dashboard)
+   Private operating view. Reuses the dataroom vocabulary — stat tiles, chart
+   cards, scrolling tables — at a tighter rhythm, since this is a working
+   screen rather than a document.
+   ========================================================================== */
+
+/* `display` on a section would otherwise beat the hidden attribute, leaving the
+   gate on screen behind the unlocked dashboard. */
+[hidden] { display: none !important; }
+
+.dash section { padding: 52px 0; }
+.dash section.pt0 { padding-top: 0; }
+.dash h1.display { font-size: clamp(1.9rem, 4vw, 2.8rem); }
+.wrap.narrow { max-width: 560px; }
+
+/* ---- access gate ---- */
+.gate-sec { min-height: 78vh; display: grid; place-items: center; }
+.lock-card {
+  background: var(--paper); border: 2px solid var(--forest); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 38px 34px; width: 100%;
+}
+.key-form { margin-top: 22px; display: grid; gap: 10px; }
+.key-form label {
+  font-family: var(--font-caps); font-weight: 600; font-size: .74rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft);
+}
+.key-form input {
+  font-family: var(--font-body); font-size: 1rem; padding: 13px 14px;
+  border: 2px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink);
+}
+.key-form input:focus { outline: none; border-color: var(--leaf); }
+.key-form .btn { justify-self: start; margin-top: 4px; }
+.key-err { color: var(--chilli); font-size: .9rem; margin-top: 4px; }
+
+/* ---- freshness strip ---- */
+.freshness { margin: 22px 0 26px; display: grid; gap: 8px; }
+.fresh {
+  font-size: .88rem; padding: 10px 14px; border-radius: 10px;
+  border-left: 4px solid var(--leaf); background: var(--paper); color: var(--ink-soft);
+}
+.fresh.warn { border-left-color: var(--coral-deep); color: var(--ink); }
+
+/* ---- KPI tiles: four across, two rows ---- */
+.stat-grid.kpi { grid-template-columns: repeat(4, 1fr); }
+.stat-grid.kpi .stat { padding: 20px 14px; }
+.stat-grid.kpi .num { font-size: clamp(1.15rem, 2.1vw, 1.7rem); }
+.stat-grid.kpi .lbl { font-size: .68rem; letter-spacing: .12em; margin-top: 6px; }
+
+/* ---- charts ---- */
+.dash-two { gap: 24px; align-items: start; }
+.dash-two .chart-card { margin-top: 24px; }
+.chart-empty {
+  padding: 46px 20px; text-align: center; color: var(--ink-soft); font-size: .9rem;
+  background: var(--paper); border: 1px dashed var(--line); border-radius: 10px;
+}
+.chart-foot { font-size: .85rem; color: var(--ink-soft); margin-top: 12px; }
+.chart-foot strong { color: var(--forest); }
+
+/* ---- weekly table ---- */
+.dash-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.dash-table th {
+  background: var(--forest); color: var(--cream); text-align: right;
+  font-family: var(--font-caps); font-weight: 500; font-size: .72rem;
+  letter-spacing: .12em; text-transform: uppercase; padding: 11px 14px; white-space: nowrap;
+}
+.dash-table th:first-child, .dash-table td:first-child { text-align: left; }
+.dash-table td { padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.dash-table tbody tr:last-child td { border-bottom: none; }
+.dash-table tbody tr:nth-child(even) { background: var(--paper); }
+.dash-table td.strong { font-weight: 600; color: var(--forest); }
+.dash-table td.empty { text-align: center; color: var(--ink-soft); padding: 34px; }
+
+.dash-foot { margin-top: 26px; font-size: .85rem; color: var(--ink-soft); }
+
+@media (max-width: 900px) {
+  .stat-grid.kpi { grid-template-columns: repeat(2, 1fr); }
+  .dash-two { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .dash section { padding: 34px 0; }
+  .stat-grid.kpi .num { font-size: 1.15rem; }
+  .lock-card { padding: 28px 22px; }
+}
