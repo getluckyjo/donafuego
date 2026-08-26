@@ -407,3 +407,13 @@ details.faq .faq-body { padding: 0 20px 18px; color: var(--ink-soft); }
   .stat-grid.kpi .num { font-size: 1.15rem; }
   .lock-card { padding: 28px 22px; }
 }
+
+/* Sample-data mode: must be impossible to mistake for live trading. */
+.fresh.sample {
+  border-left-color: var(--chilli);
+  background: #FBECEA;
+  color: var(--ink);
+  font-weight: 600;
+}
+body.is-sample .dr-banner { background: var(--chilli); }
+body.is-sample .dr-banner::after { content: ' · SAMPLE DATA'; color: #FFD9D4; }

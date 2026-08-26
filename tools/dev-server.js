@@ -7,10 +7,16 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..', 'site');
 const PORT = process.env.PORT || 4321;
-process.env.DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'local-dev-key';
-process.env.SHEET_ID = 'fixture';
-process.env.GOOGLE_SA_EMAIL = 'fixture@example.com';
-process.env.GOOGLE_SA_PRIVATE_KEY = 'fixture';
+// SAMPLE=1 exercises the review deployment's sample-mode path exactly.
+if (process.env.SAMPLE === '1') {
+  process.env.VERCEL_PROJECT_PRODUCTION_URL = 'donadashboard.vercel.app';
+  delete process.env.SHEET_ID;
+} else {
+  process.env.DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'local-dev-key';
+  process.env.SHEET_ID = 'fixture';
+  process.env.GOOGLE_SA_EMAIL = 'fixture@example.com';
+  process.env.GOOGLE_SA_PRIVATE_KEY = 'fixture';
+}
 
 // Stand in for Google before the handler pulls the module in.
 const sheets = require('../api/_lib/sheets.js');

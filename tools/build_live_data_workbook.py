@@ -189,13 +189,15 @@ title(ws, "Assumptions",
       "The few numbers that turn rand of till sales into cases, so live trading can be compared "
       "with the Brand Pro Forma on the same basis.")
 ws["A4"] = "Checkers shelf price, incl VAT (per 250ml can)"; ws["A4"].font = SECT
-ws["D4"] = "Ask Checkers or check a shelf. Until these are filled in the dashboard shows rand only."
+ws["D4"] = "R169 incl VAT for a 4-pack, so R42.25 a can. Change here if Checkers reprices."
 ws["D4"].font = NOTE
+# R169 incl VAT for a 4-pack = R42.25 a can, per Checkers.
 for i, (art, name) in enumerate(SKUS):
     r = 5 + i
     ws[f"A{r}"] = name
+    ws[f"B{r}"] = 42.25
     ws[f"B{r}"].font = INPUT; ws[f"B{r}"].number_format = RAND2; ws[f"B{r}"].border = BOX
-    ws[f"C{r}"] = f"Article {art}"; ws[f"C{r}"].font = NOTE
+    ws[f"C{r}"] = f"Article {art} · R169 per 4-pack incl VAT"; ws[f"C{r}"].font = NOTE
 
 ws["A9"] = "Conversion"; ws["A9"].font = SECT
 for r, (lab, val, fmt, note) in enumerate([

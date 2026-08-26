@@ -12,6 +12,22 @@ const { batchGet } = require('./_lib/sheets.js');
 const { build } = require('./_lib/transform.js');
 const crypto = require('crypto');
 
+/**
+ * Sample mode.
+ *
+ * The review deployment has no sheet and no service account behind it, so it
+ * serves the sample workbook instead of failing. Deliberately narrow: it needs
+ * BOTH an unconfigured sheet AND the review project's own hostname, so sample
+ * figures can never surface on the investor site, whatever its configuration.
+ */
+const REVIEW_HOSTS = ['donadashboard'];
+
+function sampleMode() {
+  if (process.env.SHEET_ID) return false;
+  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL || '';
+  return REVIEW_HOSTS.some(function (h) { return host.indexOf(h) === 0; });
+}
+
 const RANGES = [
   "'1 Checkers Emails'!A1:F400",
   "'2 Checkers Sales Out'!A1:E400",
@@ -34,13 +50,23 @@ module.exports = async function handler(req, res) {
   const expected = process.env.DASHBOARD_TOKEN;
   const supplied = (req.query && req.query.key) || req.headers['x-dashboard-key'];
 
-  if (!expected) {
+  if (!expected && !sampleMode()) {
     res.status(500).json({ error: 'DASHBOARD_TOKEN is not configured.' });
     return;
   }
-  if (!tokenMatches(supplied, expected)) {
+  if (expected && !tokenMatches(supplied, expected)) {
     res.setHeader('Cache-Control', 'no-store');
     res.status(401).json({ error: 'Unauthorised' });
+    return;
+  }
+
+  if (sampleMode()) {
+    const demo = require('./_lib/demo-data.js');
+    const data = build(demo, new Date());
+    data.sample = true;
+    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.status(200).send(JSON.stringify(data));
     return;
   }
 

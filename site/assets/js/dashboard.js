@@ -57,7 +57,7 @@
   }
 
   function enter(key, data) {
-    storeKey(key);
+    if (key) storeKey(key);
     var lock = document.getElementById('dashLock');
     var dash = document.getElementById('dash');
     if (lock) lock.hidden = true;
@@ -79,12 +79,22 @@
 
     var who = document.getElementById('dashWho');
     if (who && d.kpi.lastWeekEnd) who.textContent = '· week ending ' + C.shortDate(d.kpi.lastWeekEnd);
+    if (d.sample) document.body.classList.add('is-sample');
   }
 
   function renderFreshness(d) {
     var host = document.getElementById('freshness');
     if (!host) return;
     var bits = [];
+
+    if (d.sample) {
+      bits.push({
+        tone: 'sample',
+        text: 'SAMPLE DATA — NOT LIVE. Checkers till sales are the three real weeks to 23 August. ' +
+              'DC orders, costs and the bulk allocation are placeholders so every panel has something to show. ' +
+              'Point this at the Live Data sheet and it switches to real figures.'
+      });
+    }
 
     if (!d.kpi.lastWeekEnd) {
       bits.push({ tone: 'warn', text: 'No till sales recorded yet — paste the weekly Checkers email into the Live Data sheet.' });
@@ -539,24 +549,29 @@
   if (refresh) {
     refresh.addEventListener('click', function (ev) {
       ev.preventDefault();
-      var k = storedKey();
-      if (k) load(k).then(render).catch(function () { location.reload(); });
+      load(storedKey() || '').then(render).catch(function () { location.reload(); });
     });
   }
 
-  // A key in the URL wins; otherwise fall back to one from earlier this session.
+  // A key in the URL wins, then one from earlier this session. With neither,
+  // try anyway: a deployment with no token configured (the sample review build)
+  // answers straight away, and everything else comes back 401 and shows the gate.
   var initial = keyFromUrl() || storedKey();
   if (initial) {
     attempt(initial, function (e) {
       if (!e.unauthorised) showError(e.message);
     });
+  } else {
+    load('').then(function (data) {
+      enter('', data);
+    }).catch(function () { /* gate stays up */ });
   }
 
   // Keep the page live without anyone reloading it: the API caches for five
   // minutes, so this costs nothing most of the time.
   setInterval(function () {
-    var k = storedKey();
     var dash = document.getElementById('dash');
-    if (k && dash && !dash.hidden) load(k).then(render).catch(function () { /* leave the last good view up */ });
+    if (!dash || dash.hidden) return;
+    load(storedKey() || '').then(render).catch(function () { /* leave the last good view up */ });
   }, 300000);
 })();

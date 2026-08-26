@@ -72,10 +72,21 @@ node tools/dev-server.js          # serves site/ with fixture data on :4321
 `tools/fixture-sheets.js` carries the three real trading weeks from Danielle's
 24 August 2026 email, so the local view matches production shape.
 
+## Sample mode
+
+The review project `donadashboard` runs with no sheet behind it and serves
+`api/_lib/demo-data.js` instead, flagged `sample: true` and banded in red on the page.
+It needs both an unconfigured sheet **and** the review project's own hostname, so sample
+figures cannot reach the investor site whatever its configuration.
+
+```
+SAMPLE=1 node tools/dev-server.js     # same path locally, on :4321
+```
+
 ## Known gaps
 
-- **Shelf prices** are not yet filled in. Until they are, the dashboard shows rand only —
-  cases, allocation cover and the plan comparison stay blank, and say so.
+- **Shelf price** is R42.25 a can (R169 incl VAT for a 4-pack, per Checkers). Change it on the
+  Assumptions tab if Checkers reprices — cases, cover and the plan comparison all key off it.
 - **Week ending 9 August is inferred.** The email that reported it carried no date header.
 - **The annualised run rate** extrapolates a launch ramp, so it reads high while the
   initial fill is still selling through. The label names its four-week basis.

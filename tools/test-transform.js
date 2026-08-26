@@ -125,7 +125,7 @@ const sheets = {
   ],
   assumptions: [
     ['Checkers shelf price, incl VAT (per 250ml can)'],
-    ['Margarita', 44.99], ['Spicy Margarita', 44.99], ['Paloma', 44.99],
+    ['Margarita', 42.25], ['Spicy Margarita', 42.25], ['Paloma', 42.25],
     ['Units per case', 24],
     ['Wholesale price per case, ex VAT', 744],
     ['Stores in Checkers listing', 360],
@@ -142,7 +142,7 @@ eq('week 2 total  R138,724', Math.round(d.salesOut[1].rand), 138724);
 eq('week 3 total  R310,391', Math.round(d.salesOut[2].rand), 310391);
 eq('latest week is the KPI week', d.kpi.lastWeekEnd, '2026-08-23');
 close('week-on-week +124%', d.kpi.wowPct, 1.2376, 0.001);
-close('cases in the latest week', d.salesOut[2].cases, 310391 / 44.99 / 24, 0.01);
+close('cases in the latest week', d.salesOut[2].cases, 310391 / 42.25 / 24, 0.01);
 eq('shelf prices present', d.assumptions.haveShelf, true);
 
 close('cost per case', d.cogs.costPerCase, 565.74, 0.01);
