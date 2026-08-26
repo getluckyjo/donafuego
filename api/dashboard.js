@@ -15,17 +15,25 @@ const crypto = require('crypto');
 /**
  * Sample mode.
  *
- * The review deployment has no sheet and no service account behind it, so it
+ * A review deployment has no sheet and no service account behind it, so it
  * serves the sample workbook instead of failing. Deliberately narrow: it needs
- * BOTH an unconfigured sheet AND the review project's own hostname, so sample
- * figures can never surface on the investor site, whatever its configuration.
+ * BOTH an unconfigured sheet AND a review hostname, so sample figures can never
+ * surface on the investor site, whatever its configuration.
+ *
+ * Matching on the request's own Host means one project can serve both: add
+ * donadashboard.vercel.app as a domain and that hostname shows sample data,
+ * while investdonafuego.vercel.app keeps waiting for the real sheet.
  */
 const REVIEW_HOSTS = ['donadashboard'];
 
-function sampleMode() {
+function isReviewHost(name) {
+  return REVIEW_HOSTS.some(function (h) { return String(name || '').indexOf(h) === 0; });
+}
+
+function sampleMode(req) {
   if (process.env.SHEET_ID) return false;
-  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL || '';
-  return REVIEW_HOSTS.some(function (h) { return host.indexOf(h) === 0; });
+  return isReviewHost(req && req.headers && req.headers.host)
+    || isReviewHost(process.env.VERCEL_PROJECT_PRODUCTION_URL);
 }
 
 const RANGES = [
@@ -50,7 +58,7 @@ module.exports = async function handler(req, res) {
   const expected = process.env.DASHBOARD_TOKEN;
   const supplied = (req.query && req.query.key) || req.headers['x-dashboard-key'];
 
-  if (!expected && !sampleMode()) {
+  if (!expected && !sampleMode(req)) {
     res.status(500).json({ error: 'DASHBOARD_TOKEN is not configured.' });
     return;
   }
@@ -60,7 +68,7 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  if (sampleMode()) {
+  if (sampleMode(req)) {
     const demo = require('./_lib/demo-data.js');
     const data = build(demo, new Date());
     data.sample = true;
