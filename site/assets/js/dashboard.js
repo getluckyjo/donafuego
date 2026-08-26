@@ -90,9 +90,9 @@
     if (d.sample) {
       bits.push({
         tone: 'sample',
-        text: 'SAMPLE DATA — NOT LIVE. Checkers till sales are the three real weeks to 23 August. ' +
-              'DC orders, costs and the bulk allocation are placeholders so every panel has something to show. ' +
-              'Point this at the Live Data sheet and it switches to real figures.'
+        text: 'SAMPLE DATA — NOT LIVE. Every figure on this page is invented, shaped like a launch ' +
+              'ramp so the charts read correctly. Real trading appears only once this is pointed at the ' +
+              'Live Data sheet, behind the access key.'
       });
     }
 

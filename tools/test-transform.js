@@ -1,5 +1,6 @@
 'use strict';
-/* Exercises api/_lib/transform.js against the real Checkers email. Run: node tools/test-transform.js */
+/* Exercises api/_lib/transform.js against the real Checkers email FORMAT.
+   Amounts are invented — this repository is public. Run: node tools/test-transform.js */
 const t = require('../api/_lib/transform.js');
 
 let pass = 0, fail = 0;
@@ -22,39 +23,39 @@ const plain = [
   ['Subject: Sales (Last Week: 17th Aug - 23rd Aug)'],
   ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA'],
   ['R-'],
-  [' R130,464'],
+  [' R138,000'],
   ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA'],
   ['R-'],
-  [' R94,089'],
+  [' R99,000'],
   ['000000000010969426 : COOLER DONA FUEGO 250ML, PALOMA'],
   ['R-'],
-  [' R85,838'],
+  [' R91,000'],
 ];
 let rows = t.parseCheckersEmails(plain, NOW);
 eq('three rows', rows.length, 3);
 eq('week resolves to 2026-08-23', rows[0].weekEnd, '2026-08-23');
-eq('margarita value', rows[0].rand, 130464);
-eq('spicy value', rows[1].rand, 94089);
-eq('paloma value', rows[2].rand, 85838);
+eq('margarita value', rows[0].rand, 138000);
+eq('spicy value', rows[1].rand, 99000);
+eq('paloma value', rows[2].rand, 91000);
 ok('R- never taken as a value', rows.every(r => r.rand > 0));
 
 console.log('\nparseCheckersEmails — table paste from the HTML mail');
 const table = [
   ['Subject: Sales (Last Week: 17th Aug - 23rd Aug)'],
-  ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA', 'R-', ' R130,464'],
-  ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA', 'R-', ' R94,089'],
-  ['000000000010969426 : COOLER DONA FUEGO 250ML, PALOMA', 'R-', ' R85,838'],
+  ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA', 'R-', ' R138,000'],
+  ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA', 'R-', ' R99,000'],
+  ['000000000010969426 : COOLER DONA FUEGO 250ML, PALOMA', 'R-', ' R91,000'],
 ];
 rows = t.parseCheckersEmails(table, NOW);
 eq('three rows', rows.length, 3);
-eq('same values as plain-text', rows.map(r => r.rand).join(','), '130464,94089,85838');
+eq('same values as plain-text', rows.map(r => r.rand).join(','), '138000,99000,91000');
 
 console.log('\nparseCheckersEmails — a pasted thread quoting earlier weeks');
 const thread = plain.concat([
   ['Subject: Sales (Last Week: 10th Aug - 16th Aug)'],
-  ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA'], ['R-'], [' R58,353'],
-  ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA'], ['R-'], [' R43,565'],
-  ['000000000010969426 : COOLER DONA FUEGO 250ML, PALOMA'], ['R-'], [' R36,806'],
+  ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA'], ['R-'], [' R62,000'],
+  ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA'], ['R-'], [' R46,000'],
+  ['000000000010969426 : COOLER DONA FUEGO 250ML, PALOMA'], ['R-'], [' R39,000'],
 ]);
 rows = t.parseCheckersEmails(thread, NOW);
 eq('picks up both weeks', rows.length, 6);
@@ -65,12 +66,12 @@ eq('re-pasting the same thread changes nothing', twice.length, 6);
 console.log('\nparseCheckersEmails — space-separated rands');
 const spaced = [
   ['Subject: Sales (Last Week: 17th Aug - 23rd Aug)'],
-  ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA'], ['R-'], [' R130 464'],
-  ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA'], ['R-'], ['R94\u00A0089'],
+  ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA'], ['R-'], [' R138 000'],
+  ['000000000010969425 : COOLER DONA FUEGO 250ML, SPCY MARGARITA'], ['R-'], ['R99\u00A0000'],
 ];
 rows = t.parseCheckersEmails(spaced, NOW);
-eq('space separator parsed', rows.length && rows[0].rand, 130464);
-eq('non-breaking space parsed', rows.length > 1 && rows[1].rand, 94089);
+eq('space separator parsed', rows.length && rows[0].rand, 138000);
+eq('non-breaking space parsed', rows.length > 1 && rows[1].rand, 99000);
 
 console.log('\nresolveYear — a week either side of new year');
 const jan = [['Sales (Last Week: 28th Dec - 3rd Jan)'],
@@ -87,7 +88,7 @@ eq('Monday  -> Sunday', t.weekEndFor('2026-08-17'), '2026-08-23');
 eq('Sunday  -> itself',  t.weekEndFor('2026-08-23'), '2026-08-23');
 
 console.log('\ntoNumber / toISODate');
-eq('rand string', t.toNumber('R130,464'), 130464);
+eq('rand string', t.toNumber('R138,000'), 138000);
 eq('accounting zero is not a number', t.toNumber('R-'), null);
 eq('sheets serial -> date', t.toISODate(46257), '2026-08-23');
 eq('iso passthrough', t.toISODate('2026-08-09'), '2026-08-09');
@@ -98,9 +99,9 @@ const sheets = {
   salesOut: [
     ['Checkers till sales — typed in by hand'], [],
     ['week_end', 'sku', 'rand_incl_vat'],
-    ['2026-08-09', 'Margarita', 11695],
-    ['2026-08-09', 'Spicy Margarita', 7199],
-    ['2026-08-09', 'Paloma', 7912],
+    ['2026-08-09', 'Margarita', 12500],
+    ['2026-08-09', 'Spicy Margarita', 8000],
+    ['2026-08-09', 'Paloma', 8500],
   ],
   salesIn: [
     ['date', 'order_ref', 'sku', 'cases', 'rand_ex_vat', 'notes'],
@@ -137,12 +138,12 @@ const d = t.build(sheets, NOW);
 
 eq('three weeks of sell-out', d.salesOut.length, 3);
 eq('weeks in order', d.salesOut.map(w => w.weekEnd).join(','), '2026-08-09,2026-08-16,2026-08-23');
-eq('week 1 total  R26,806', Math.round(d.salesOut[0].rand), 26806);
-eq('week 2 total  R138,724', Math.round(d.salesOut[1].rand), 138724);
-eq('week 3 total  R310,391', Math.round(d.salesOut[2].rand), 310391);
+eq('week 1 total  R29,000', Math.round(d.salesOut[0].rand), 29000);
+eq('week 2 total  R147,000', Math.round(d.salesOut[1].rand), 147000);
+eq('week 3 total  R328,000', Math.round(d.salesOut[2].rand), 328000);
 eq('latest week is the KPI week', d.kpi.lastWeekEnd, '2026-08-23');
-close('week-on-week +124%', d.kpi.wowPct, 1.2376, 0.001);
-close('cases in the latest week', d.salesOut[2].cases, 310391 / 42.25 / 24, 0.01);
+close('week-on-week +123%', d.kpi.wowPct, 1.2313, 0.001);
+close('cases in the latest week', d.salesOut[2].cases, 328000 / 42.25 / 24, 0.01);
 eq('shelf prices present', d.assumptions.haveShelf, true);
 
 close('cost per case', d.cogs.costPerCase, 565.74, 0.01);
@@ -173,7 +174,7 @@ console.log('\nbuild — no shelf prices yet: rand still works, cases stay null'
 const noShelf = JSON.parse(JSON.stringify(sheets));
 noShelf.assumptions = noShelf.assumptions.filter(r => !['Margarita','Spicy Margarita','Paloma'].includes(r[0]));
 const ns = t.build(noShelf, NOW);
-eq('rand still totalled', Math.round(ns.salesOut[2].rand), 310391);
+eq('rand still totalled', Math.round(ns.salesOut[2].rand), 328000);
 eq('cases withheld', ns.salesOut[2].cases, null);
 eq('flagged as missing', ns.assumptions.haveShelf, false);
 

@@ -1,8 +1,12 @@
 'use strict';
 /* Sample data standing in for the Live Data sheet, used by the review
-   deployment and by the local dev server and tests. The Checkers weeks are the real
-   figures from Danielle's 24 Aug 2026 email; DC orders and costs are
-   representative so every panel has something to draw. */
+   deployment and by the local dev server and tests.
+   
+   EVERY FIGURE HERE IS INVENTED. It is shaped like a launch ramp so the charts
+   read correctly, but no real number belongs in this file: this repository is
+   public, and the review deployment serves it without authentication. Real
+   Checkers sell-through reaches the dashboard only through the Live Data
+   sheet, behind the token gate. */
 const emailWeek = (heading, m, s, p) => [
   [heading],
   ['000000000010969424 : COOLER DONA FUEGO 250ML, MARGARITA'], ['R-'], [' R' + m.toLocaleString('en-US')],
@@ -15,15 +19,15 @@ module.exports = {
   emails: [
     ['Checkers till sales — paste the weekly email here'], [], ['Paste below this line'],
   ].concat(
-    emailWeek('Subject: Sales (Last Week: 17th Aug - 23rd Aug)', 130464, 94089, 85838),
-    emailWeek('Subject: Sales (Last Week: 10th Aug - 16th Aug)', 58353, 43565, 36806),
+    emailWeek('Subject: Sales (Last Week: 17th Aug - 23rd Aug)', 138000, 99000, 91000),
+    emailWeek('Subject: Sales (Last Week: 10th Aug - 16th Aug)', 62000, 46000, 39000),
   ),
   salesOut: [
     ['Checkers till sales — typed in by hand'], [],
     ['week_end', 'sku', 'rand_incl_vat'],
-    ['2026-08-09', 'Margarita', 11695],
-    ['2026-08-09', 'Spicy Margarita', 7199],
-    ['2026-08-09', 'Paloma', 7912],
+    ['2026-08-09', 'Margarita', 12500],
+    ['2026-08-09', 'Spicy Margarita', 8000],
+    ['2026-08-09', 'Paloma', 8500],
   ],
   salesIn: [
     ['DC sales in'], [],

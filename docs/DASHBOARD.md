@@ -69,13 +69,15 @@ node tools/dev-server.js          # serves site/ with fixture data on :4321
                                   # -> http://localhost:4321/dashboard?key=local-dev-key
 ```
 
-`tools/fixture-sheets.js` carries the three real trading weeks from Danielle's
-24 August 2026 email, so the local view matches production shape.
+`api/_lib/demo-data.js` carries an invented ramp in the real email's format, so the local
+view matches production shape without putting trading figures in a public repository.
 
 ## Sample mode
 
 The review project `donadashboard` runs with no sheet behind it and serves
 `api/_lib/demo-data.js` instead, flagged `sample: true` and banded in red on the page.
+Sample mode skips the token gate, so that hostname is **public** — every figure in
+`demo-data.js` must therefore be invented. Never paste reported sell-through into it.
 It needs both an unconfigured sheet **and** the review project's own hostname, so sample
 figures cannot reach the investor site whatever its configuration.
 
