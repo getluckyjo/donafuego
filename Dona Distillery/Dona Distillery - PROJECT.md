@@ -89,7 +89,7 @@ Two months of Checkers store-level data plus Instagram engagement invert the fou
 |---|---|---|
 | **Geography** | Sea Point; Cape wine farms on weekends | Gauteng north — Centurion, Fourways, Rivonia, Kyalami, Ferndale, Waterfall Corner, Leaping Frog, Irene Village, Southgate |
 | **Consumer** | Cosmopolitan, trend-aware, founder's own age and circle | Black women, roughly 30–40 |
-| **Occasion** | Weekend wine farm | Unmapped — Gauteng-north suburban, not Cape leisure. To be established by the 10×10 exercise |
+| **Occasion** | Weekend wine farm | Unmapped — to be established by the 10×10 exercise. Note the aspiration is Cape/international even where the buyer is not |
 
 **The evidence:**
 
@@ -104,7 +104,11 @@ Two months of Checkers store-level data plus Instagram engagement invert the fou
 3. **The planned social shoot is casting the old persona.** It is built around the founder's own friends — her age, her city, her circle. That is Sunny rendered as a cast list. See Shoot Direction below.
 4. **Occasion is now the open question, not audience.** We know who is buying. We do not yet know what for. That is what the 10×10 exercise has to answer, and it now has real data to run against.
 
-**Caveat, to close before acting fully:** the Western Cape zeros may be partly a distribution artefact — small-format stores, poor facings, or no stock at all — rather than a demand verdict. Worth confirming against the report before writing the region off. The Instagram signal is independent of shelf presence, which is why the overall read holds regardless.
+**Why the Western Cape sells nothing — the aspiration reading.** Doña Fuego is an aspirational buy: badge value, identity signalling, a brand people use to build their own. The Cape and international look is what carries that signal. Someone already living in Franschhoek or Hout Bay does not need the badge — she is living the thing the brand signals. The Cape zeros are therefore not a demand failure but the mechanism working as designed, and they are no argument for changing the visual world of the brand.
+
+This reframes the persona split cleanly: **Cape as setting, Gauteng as audience.** The imagery stays aspirational and Cape/international; the casting, the media spend and the creator partnerships all point at Gauteng north.
+
+**Secondary caveat, still worth closing:** some of the Western Cape zeros may also be a distribution artefact — small-format stores, poor facings, or no stock. Worth confirming against the report, though it no longer changes the creative direction either way.
 
 ## Shoot Direction (Aug 2026)
 
@@ -119,7 +123,7 @@ Danielle raised whether to add a *secondary* shoot to capture the demographic ac
 
 - **The distribution is the point, more than the content.** Three creators posting to their own Gauteng followings reaches the geography that is actually buying. The shoot assets are the by-product; the audience access is the asset.
 - **Guests, not extras.** Each gets her own setups, not group filler at the edge of frame. If they read as background, the exercise defeats itself.
-- **Watch the setting.** A Cape braai still reads Cape. Keep frames tight on people, product and food; avoid establishing shots that put a mountain or a vineyard in the story. The occasion should read suburban and repeatable, not aspirational-Cape.
+- **Keep the Cape in frame.** The Cape and international look is doing the aspirational work, and that is why the brand converts. Cape as setting, Gauteng as audience — the buyer is not buying her own suburb. Shoot the mountain, the water, the wine-farm light.
 - **Cost is small against a second shoot.** Three flights, a night's accommodation and a fee lands well under a separate production, and it seeds the "1,000 Top Fans" file at the same time.
 - **Ask for the posting commitment up front.** Content rights plus an agreed number of posts, agreed before flights are booked.
 
