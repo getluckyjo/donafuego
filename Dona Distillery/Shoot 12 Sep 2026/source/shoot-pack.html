@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Doña Fuego — Braai Shoot Pack — Sat 12 Sep 2026</title>
+<style>
+@font-face { font-family:'Bevan'; font-weight:400; src:url(Bevan-400.woff2) format('woff2'); }
+@font-face { font-family:'Oswald'; font-weight:400 600; src:url(Oswald-400.woff2) format('woff2'); }
+@font-face { font-family:'Work Sans'; font-weight:400 600; src:url(WorkSans-400.woff2) format('woff2'); }
+@font-face { font-family:'Work Sans'; font-style:italic; font-weight:400; src:url(WorkSans-400-italic.woff2) format('woff2'); }
+
+:root{
+  --cream:#F3ECDC; --cream-deep:#EAE0CB; --paper:#FAF6EC; --white:#fff;
+  --forest:#14522A; --forest-deep:#0B3D1E; --leaf:#4C8A2E; --lime:#A8C13F;
+  --coral:#D6746A; --coral-deep:#C95F52; --chilli:#A00000;
+  --ink:#2C2A21; --ink-soft:#5A574A; --line:#D9CEB6;
+  --display:'Bevan',Georgia,serif; --caps:'Oswald','Arial Narrow',sans-serif; --body:'Work Sans',Helvetica,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+@page{ size:A4; margin:0; }
+html,body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{ font-family:var(--body); color:var(--ink); font-size:9.4pt; line-height:1.5; background:#8c8c8c; }
+
+.page{
+  width:210mm; height:297mm; background:var(--white);
+  padding:15mm 16mm 13mm; position:relative; overflow:hidden;
+  page-break-after:always; display:flex; flex-direction:column;
+}
+.page:last-child{ page-break-after:auto; }
+
+/* ---------- type ---------- */
+.display{ font-family:var(--display); font-weight:400; color:var(--forest); text-transform:uppercase; line-height:1.04; letter-spacing:.005em; }
+h1.display{ font-size:38pt; }
+h2.display{ font-size:19pt; }
+h3.display{ font-size:11.5pt; }
+.eyebrow{ font-family:var(--caps); font-weight:600; font-size:7.6pt; letter-spacing:.26em; text-transform:uppercase; color:var(--chilli); display:block; }
+.eyebrow.green{ color:var(--leaf); }
+.eyebrow.ink{ color:var(--ink-soft); }
+.kicker{ font-family:var(--caps); font-weight:600; font-size:8.6pt; letter-spacing:.14em; text-transform:uppercase; color:var(--forest); }
+.lede{ font-size:11pt; line-height:1.5; }
+.muted{ color:var(--ink-soft); }
+em{ font-style:italic; }
+strong{ font-weight:600; }
+p+p{ margin-top:.55em; }
+
+/* ---------- page furniture ---------- */
+.phead{ display:flex; align-items:flex-end; justify-content:space-between; border-bottom:2.5pt solid var(--forest); padding-bottom:3mm; margin-bottom:6mm; }
+.phead .t{ }
+.phead .n{ font-family:var(--caps); font-size:7.4pt; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); text-align:right; line-height:1.5; }
+.pfoot{ margin-top:auto; padding-top:4mm; border-top:.75pt solid var(--line); display:flex; justify-content:space-between;
+  font-family:var(--caps); font-size:6.8pt; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); }
+.tag{ display:inline-block; font-family:var(--caps); font-size:6.8pt; letter-spacing:.18em; text-transform:uppercase;
+  background:var(--chilli); color:var(--cream); padding:1.4mm 3mm; border-radius:2mm; }
+.tag.green{ background:var(--forest); }
+.tag.coral{ background:var(--coral-deep); }
+.tag.ghost{ background:none; color:var(--ink-soft); border:.75pt solid var(--line); }
+
+/* ---------- cover ---------- */
+.cover{ background:var(--cream); padding:16mm 16mm 13mm; }
+.cover .rule{ height:3pt; background:var(--chilli); width:46mm; margin:0 0 7mm; }
+.cover h1{ font-size:50pt; margin-bottom:6mm; }
+.cover h1 .accent{ color:var(--chilli); }
+.cover .when{ font-family:var(--caps); font-weight:600; font-size:12pt; letter-spacing:.1em; text-transform:uppercase; color:var(--forest); line-height:1.55; }
+.cover .lede{ max-width:112mm; margin-top:6mm; }
+.covergrid{ display:grid; grid-template-columns:1fr 58mm; gap:10mm; align-items:start; }
+.canpanel{ background:var(--white); border:.75pt solid var(--line); border-radius:3mm; padding:5mm 4mm 4mm; text-align:center; }
+.canpanel img{ width:15mm; display:inline-block; vertical-align:bottom; }
+.canpanel .cap{ font-family:var(--caps); font-size:6.6pt; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin-top:3mm; line-height:1.6; }
+.fillbox{ border:1pt solid var(--forest); border-radius:3mm; padding:5mm; background:var(--white); margin-top:auto; margin-bottom:6mm; }
+.fillrow{ display:flex; gap:6mm; }
+.fillrow > div{ flex:1; }
+.filllabel{ font-family:var(--caps); font-size:6.8pt; letter-spacing:.2em; text-transform:uppercase; color:var(--chilli); }
+.fillline{ border-bottom:.75pt solid var(--ink); height:8mm; }
+
+/* ---------- tables ---------- */
+table{ border-collapse:collapse; width:100%; }
+th{ font-family:var(--caps); font-weight:600; font-size:7pt; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--white); background:var(--forest); text-align:left; padding:2mm 3mm; }
+td{ padding:2.2mm 3mm; border-bottom:.75pt solid var(--line); vertical-align:top; font-size:9pt; }
+tr:nth-child(even) td{ background:var(--paper); }
+td.tm{ font-family:var(--caps); font-weight:600; font-size:9pt; letter-spacing:.04em; color:var(--forest); white-space:nowrap; }
+td.nm{ font-weight:600; white-space:nowrap; }
+.block td.tm{ color:var(--chilli); }
+
+/* ---------- panels & lists ---------- */
+.panel{ background:var(--paper); border:.75pt solid var(--line); border-radius:3mm; padding:4.5mm 5mm; }
+.panel.green{ background:var(--forest); border-color:var(--forest); color:var(--cream); }
+.panel.green .display,.panel.green .kicker{ color:var(--cream); }
+.panel.green .eyebrow{ color:var(--lime); }
+.panel.cream{ background:var(--cream); }
+.two{ display:grid; grid-template-columns:1fr 1fr; gap:6mm; }
+.three{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:5mm; }
+ul{ list-style:none; }
+ul li{ position:relative; padding-left:4.2mm; margin-bottom:1.5mm; }
+ul li:before{ content:''; position:absolute; left:0; top:1.5mm; width:1.8mm; height:1.8mm; background:var(--coral); border-radius:50%; }
+ul.tick li:before{ background:var(--leaf); }
+ul.cross li:before{ background:var(--chilli); }
+.stack > * + *{ margin-top:5mm; }
+
+/* ---------- swatches ---------- */
+.swatches{ display:grid; grid-template-columns:repeat(5,1fr); gap:3.5mm; }
+.sw .chip{ height:17mm; border-radius:2.5mm; border:.5pt solid rgba(44,42,33,.18); }
+.sw .nm{ font-family:var(--caps); font-size:7pt; letter-spacing:.12em; text-transform:uppercase; margin-top:1.8mm; color:var(--ink); line-height:1.3; }
+.sw .hx{ font-family:var(--caps); font-size:6.2pt; letter-spacing:.1em; color:var(--ink-soft); }
+
+/* ---------- shot list ---------- */
+.shot{ display:flex; gap:3.5mm; align-items:flex-start; padding:2.4mm 0; border-bottom:.75pt solid var(--line); break-inside:avoid; }
+.shot .box{ width:5mm; height:5mm; border:1pt solid var(--forest); border-radius:1mm; flex:0 0 5mm; margin-top:.6mm; }
+.shot .num{ font-family:var(--display); font-size:11pt; color:var(--coral-deep); flex:0 0 7mm; line-height:1; margin-top:.4mm; }
+.shot .txt strong{ font-family:var(--caps); font-weight:600; font-size:9pt; letter-spacing:.08em; text-transform:uppercase; color:var(--forest); }
+.shot .txt span{ display:block; color:var(--ink); font-size:8.8pt; line-height:1.45; }
+
+/* ---------- camera cards ---------- */
+.cam{ border:.75pt solid var(--line); border-radius:3mm; overflow:hidden; break-inside:avoid; }
+.cam .hd{ background:var(--cream); padding:2.1mm 4mm; display:flex; justify-content:space-between; align-items:baseline; border-bottom:.75pt solid var(--line); }
+.cam .hd .nm{ font-family:var(--display); font-size:10pt; color:var(--forest); text-transform:uppercase; }
+.cam .hd .mt{ font-family:var(--caps); font-size:6.8pt; letter-spacing:.16em; text-transform:uppercase; color:var(--chilli); }
+.cam .bd{ padding:2.6mm 4mm 2.8mm; }
+.cam .bd li{ margin-bottom:.9mm; font-size:8.3pt; line-height:1.38; }
+
+.rulesnum{ counter-reset:r; list-style:none; }
+.rulesnum li{ counter-increment:r; position:relative; padding-left:7mm; margin-bottom:2mm; font-size:9pt; line-height:1.45; }
+.rulesnum li:before{ content:counter(r); position:absolute; left:0; top:0; width:5mm; height:5mm; border-radius:50%;
+  background:var(--chilli); color:var(--cream); font-family:var(--caps); font-size:7pt; text-align:center; line-height:5mm; }
+.big{ font-family:var(--display); font-size:15pt; color:var(--chilli); text-transform:uppercase; line-height:1.1; }
+.hair{ height:.75pt; background:var(--line); margin:4mm 0; }
+.note{ font-size:8.4pt; color:var(--ink-soft); line-height:1.45; }
+.dense li{ font-size:8.4pt; line-height:1.4; margin-bottom:1mm; }
+.dense li:before{ top:1.2mm; width:1.5mm; height:1.5mm; }
+.dense .kicker{ font-size:8.2pt; }
+</style>
+</head>
+<body>
+
+<!-- =========================== 1 · COVER =========================== -->
+<section class="page cover">
+  <div class="rule"></div>
+  <span class="eyebrow">Doña Fuego Tequila &nbsp;·&nbsp; Content Shoot &nbsp;·&nbsp; Cape Town</span>
+
+  <div class="covergrid" style="margin-top:8mm;">
+    <div>
+      <h1 class="display">One braai.<br>Ten cameras.<br><span class="accent">No BS.</span></h1>
+      <div class="when">
+        Saturday 12 September 2026<br>
+        15:00 – 19:00<br>
+        367 Ocean View Drive, Fresnaye
+      </div>
+      <p class="lede" style="margin-top:6mm;">You're not a guest at this braai. You're a camera.</p>
+      <p class="lede muted">Everything in here takes four minutes to read. Read it Friday night, bring the twelve shots on page 6 in your head, then forget the rest and have a proper afternoon — that's when the good frames happen anyway.</p>
+
+      <div style="margin-top:9mm;">
+        <span class="kicker">In this pack</span>
+        <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <div style="font-family:var(--caps); font-size:8.4pt; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); line-height:2;">
+          <strong style="color:var(--chilli);">2</strong>&nbsp; Call sheet &nbsp;·&nbsp;
+          <strong style="color:var(--chilli);">3</strong>&nbsp; Running order &nbsp;·&nbsp;
+          <strong style="color:var(--chilli);">4</strong>&nbsp; Colour &amp; wardrobe<br>
+          <strong style="color:var(--chilli);">5</strong>&nbsp; Your camera &nbsp;·&nbsp;
+          <strong style="color:var(--chilli);">6</strong>&nbsp; The twelve &nbsp;·&nbsp;
+          <strong style="color:var(--chilli);">7</strong>&nbsp; Your call &amp; the rules<br>
+          <strong style="color:var(--chilli);">8</strong>&nbsp; Load-in &amp; styling <span style="color:var(--ink-soft);">(crew)</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="canpanel">
+        <img src="can-margarita.webp" alt=""><img src="can-paloma.webp" alt=""><img src="can-spicy.webp" alt="">
+        <div class="cap">Margarita · Paloma<br>Spicy Margarita · Non-Alc</div>
+      </div>
+      <div class="panel cream" style="margin-top:5mm;">
+        <span class="eyebrow green">The crew</span>
+        <div style="font-size:8.6pt; line-height:1.7; margin-top:2mm;">
+          <strong>Johannes le Roux</strong><br><span class="muted">Producer · Sony video</span><br>
+          <strong style="display:inline-block;margin-top:1.8mm;">Clarissa</strong><br><span class="muted">Brand manager · Stylist</span><br>
+          <strong style="display:inline-block;margin-top:1.8mm;">Danielle Schoeman</strong><br><span class="muted">Founder · Host</span><br>
+          <strong style="display:inline-block;margin-top:1.8mm;">Liezl</strong><br><span class="muted">Photographer · Fujifilm</span><br>
+          <strong style="display:inline-block;margin-top:1.8mm;">You + nine others</strong><br><span class="muted">One camera each</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fillbox">
+    <div class="fillrow">
+      <div><span class="filllabel">This pack belongs to</span><div class="fillline"></div></div>
+      <div style="flex:0 0 26mm;"><span class="filllabel">Camera no.</span><div class="fillline"></div></div>
+      <div style="flex:0 0 46mm;"><span class="filllabel">Camera type</span><div class="fillline"></div></div>
+    </div>
+  </div>
+
+  <div class="pfoot">
+    <span>Doña Fuego · Braai Shoot · Fresnaye</span>
+    <span>Sat 12 Sep 2026 · Pack 1 of 8</span>
+  </div>
+</section>
+
+<!-- =========================== 2 · CALL SHEET =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">The details</span>
+      <h2 class="display">Call sheet</h2>
+    </div>
+    <div class="n">Doña Fuego Braai Shoot<br>Sat 12 September 2026</div>
+  </div>
+
+  <div class="two" style="gap:7mm;">
+    <div class="stack">
+      <div>
+        <span class="kicker">Where</span>
+        <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <p><strong>367 Ocean View Drive, Fresnaye, Cape Town.</strong></p>
+        <p class="note">Ocean View Drive is narrow and steep. Park tight against the kerb facing downhill, leave the driveway clear, and walk the last bit rather than blocking a neighbour. If it's full, drop your things at the top and go park below.</p>
+      </div>
+      <div>
+        <span class="kicker">The light</span>
+        <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <table>
+          <tr><td class="tm">≈ 17:30</td><td>Golden hour opens — the whole afternoon builds to this</td></tr>
+          <tr><td class="tm">≈ 18:30</td><td>Sunset over the Atlantic, straight off the deck</td></tr>
+          <tr><td class="tm">≈ 19:00</td><td>Last usable light. Flash from here on</td></tr>
+        </table>
+        <p class="note" style="margin-top:2.5mm;">Times are for 12 September in Cape Town and shift a few minutes either way — I'll confirm on the day. Fresnaye faces due west, so nothing blocks the sunset. It also gets a wind after six: bring a jersey you don't mind being photographed in.</p>
+      </div>
+      <div>
+        <span class="kicker">Bring</span>
+        <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <ul>
+          <li>Yourself, on time, fed enough to last until the meat comes off.</li>
+          <li>Wardrobe per page 4. Two options if you're unsure — Clarissa will call it.</li>
+          <li>Sunglasses for the deck, a jersey for after sunset, swimming things.</li>
+          <li>Nothing to drink. Everything in frame has to be Doña Fuego, and there's plenty.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Before you shoot</span>
+        <p style="margin-top:2mm; font-size:8.8pt;">There's a one-page release at the table. Everything shot on the day may end up on Doña Fuego's Instagram, in Checkers point-of-sale, or in the brand's press pack. Sign it before you pick up a camera, and if there's anything you'd rather not be in, say so early — it's an easy yes.</p>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div>
+        <span class="kicker">Times</span>
+        <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <table>
+          <tr><td class="tm">12:00</td><td><strong>Crew call.</strong> Johannes, Clarissa, Danielle. Load in, ice down, fire laid, table dressed.</td></tr>
+          <tr><td class="tm">14:00</td><td><strong>Liezl + guests.</strong> Land, settle, drink in hand. Camera briefing at 14:40, standing up, ten minutes.</td></tr>
+          <tr><td class="tm">15:00</td><td><strong>Cameras up.</strong> The shoot runs from here.</td></tr>
+          <tr><td class="tm">19:00</td><td><strong>Wrap.</strong> Every camera back in the box, named. Then the braai carries on off the record.</td></tr>
+        </table>
+      </div>
+
+      <div class="panel">
+        <span class="eyebrow">Comms</span>
+        <div style="margin-top:2mm;">
+          <p style="font-size:8.8pt;">WhatsApp group <strong>“Doña Fuego Braai”</strong> goes live Thursday. Running late, lost on the mountain, or stuck for a lift — put it in the group, not in a private message to me. I'll be holding a camera.</p>
+        </div>
+        <div class="hair"></div>
+        <div class="fillrow" style="gap:4mm;">
+          <div><span class="filllabel">Johannes</span><div class="fillline" style="height:6mm;"></div></div>
+          <div><span class="filllabel">Clarissa</span><div class="fillline" style="height:6mm;"></div></div>
+        </div>
+      </div>
+
+      <div class="panel green">
+        <span class="eyebrow">Getting home</span>
+        <p style="margin-top:2mm; font-size:9pt;">If you're driving, tell me at 15:00 and I'll keep you on the Non-Alc Margarita all day — it shoots exactly the same as the rest. If you're not driving, don't. There's an e-hailing budget for the night and it's there to be used.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Call sheet</span><span>Page 2 of 8</span></div>
+</section>
+
+<!-- =========================== 3 · RUNNING ORDER =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">How the afternoon runs</span>
+      <h2 class="display">Running order</h2>
+    </div>
+    <div class="n">Five blocks · 15:00 – 19:00<br>Nothing is staged twice</div>
+  </div>
+
+  <p class="lede" style="margin-bottom:5mm;">The braai is real and the food is real. The blocks below just tell you where the energy is, so you're not shooting the salad while the sun is going down.</p>
+
+  <table class="block">
+    <thead><tr><th style="width:26mm;">Time</th><th style="width:34mm;">Block</th><th>What's happening</th><th style="width:52mm;">Your camera</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="tm">12:00 – 13:30</td><td class="nm">Load-in</td>
+        <td>Crew only. Cooler boxes packed, stock iced, fire laid, table dressed, hero cans set aside.</td>
+        <td class="muted">In the bag.</td>
+      </tr>
+      <tr>
+        <td class="tm">13:30 – 14:00</td><td class="nm">Test frames</td>
+        <td>Liezl and Johannes light-check the deck, the table and the braai. First can opened, on purpose.</td>
+        <td class="muted">In the bag.</td>
+      </tr>
+      <tr>
+        <td class="tm">14:00 – 15:00</td><td class="nm">Arrivals</td>
+        <td>Guests land, drinks poured, releases signed, cameras handed out and numbered. Briefing at 14:40.</td>
+        <td class="muted">Learn it. Don't burn frames.</td>
+      </tr>
+      <tr>
+        <td class="tm">15:00 – 16:00</td><td class="nm">A · The cooler box</td>
+        <td>Arrival energy. Ice, hugs, the first crack, cans going into hands. The loudest hour.</td>
+        <td>Shots 1, 2, 3. Flash off outside.</td>
+      </tr>
+      <tr>
+        <td class="tm">16:00 – 17:00</td><td class="nm">B · The fire</td>
+        <td>Braai lit, meat on, tongs out, everyone standing around the fire the way South Africans do.</td>
+        <td>Shots 5, 6. Get in close to the smoke.</td>
+      </tr>
+      <tr>
+        <td class="tm">17:00 – 18:00</td><td class="nm">C · The table</td>
+        <td>Clarissa's salads and breads land. Long-lunch chaos, pouring, passing, talking over each other.</td>
+        <td>Shots 4, 7, 9, 10. Sit down and shoot from your chair.</td>
+      </tr>
+      <tr>
+        <td class="tm">18:00 – 18:45</td><td class="nm">D · Golden hour</td>
+        <td><strong>The hero block.</strong> Cans against the light, portraits on the deck, the sun going into the sea. Nobody sits down in this hour.</td>
+        <td>Shots 8, 11. Everything you have left.</td>
+      </tr>
+      <tr>
+        <td class="tm">18:45 – 19:00</td><td class="nm">E · Last light</td>
+        <td>Flash on. Candles lit, empties on the table, plates stacked, the wind-down.</td>
+        <td>Shot 12. Your last frame.</td>
+      </tr>
+      <tr>
+        <td class="tm">19:00</td><td class="nm">Wrap</td>
+        <td>Cameras into the box with your name on them. Off the record from here.</td>
+        <td class="muted">Hand it over.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two" style="margin-top:6mm;">
+    <div class="panel">
+      <span class="eyebrow green">The one rule of the running order</span>
+      <p style="margin-top:2mm;">Don't wait for a moment to be handed to you. If two people are laughing at the other end of the table, that's the shot — get up and take it. The best frame of the day will not be one anybody planned.</p>
+    </div>
+    <div class="panel cream">
+      <span class="eyebrow">Frame budget</span>
+      <p style="margin-top:2mm;">A disposable holds 27 frames across four hours. That's roughly <strong>one every nine minutes</strong>. Twelve are spoken for on page 6; the other fifteen are yours. Don't spend ten of them in the first half hour on the same cooler box.</p>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Running order</span><span>Page 3 of 8</span></div>
+</section>
+
+<!-- =========================== 4 · WARDROBE =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">What to wear</span>
+      <h2 class="display">Colour &amp; wardrobe</h2>
+    </div>
+    <div class="n">Dress next to the can,<br>not against it</div>
+  </div>
+
+  <p class="lede" style="margin-bottom:5mm;">Everything in frame should look like it came out of the same cooler box. The cans are cream, green, coral and chilli red — sun-bleached, warm, hand-drawn. Build your outfit out of that and you'll look like you belong in the picture, because you will.</p>
+
+  <span class="kicker">The palette</span>
+  <div class="hair" style="margin:1.5mm 0 3.5mm;"></div>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#F3ECDC;"></div><div class="nm">Cream</div><div class="hx">#F3ECDC</div></div>
+    <div class="sw"><div class="chip" style="background:#E2CFA8;"></div><div class="nm">Sand</div><div class="hx">#E2CFA8</div></div>
+    <div class="sw"><div class="chip" style="background:#E8C35C;"></div><div class="nm">Butter</div><div class="hx">#E8C35C</div></div>
+    <div class="sw"><div class="chip" style="background:#A8C13F;"></div><div class="nm">Lime</div><div class="hx">#A8C13F</div></div>
+    <div class="sw"><div class="chip" style="background:#6E7A3C;"></div><div class="nm">Olive</div><div class="hx">#6E7A3C</div></div>
+  </div>
+  <div class="swatches" style="margin-top:3.5mm;">
+    <div class="sw"><div class="chip" style="background:#14522A;"></div><div class="nm">Forest</div><div class="hx">#14522A</div></div>
+    <div class="sw"><div class="chip" style="background:#D6746A;"></div><div class="nm">Coral</div><div class="hx">#D6746A</div></div>
+    <div class="sw"><div class="chip" style="background:#C4693F;"></div><div class="nm">Terracotta</div><div class="hx">#C4693F</div></div>
+    <div class="sw"><div class="chip" style="background:#A00000;"></div><div class="nm">Chilli</div><div class="hx">#A00000</div></div>
+    <div class="sw"><div class="chip" style="background:#7E96A8;"></div><div class="nm">Faded denim</div><div class="hx">#7E96A8</div></div>
+  </div>
+
+  <div class="two" style="margin-top:6mm;">
+    <div>
+      <span class="kicker">Wear</span>
+      <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+      <ul class="tick">
+        <li>Linen, cotton, crochet, denim. Texture photographs; polyester goes shiny under a flash.</li>
+        <li>Cream, bone, sand and butter as your base — they glow in the late sun.</li>
+        <li>Olive, forest and faded denim as your mid-tones.</li>
+        <li>Terracotta, coral, chilli and rust as your accent. Warm reds sit beautifully next to the label.</li>
+        <li>Straw hats, gold jewellery, leather sandals, bare feet, a good pair of sunglasses.</li>
+        <li>Old and worn beats new and stiff. A soft, faded shirt reads honest.</li>
+      </ul>
+    </div>
+    <div>
+      <span class="kicker">Leave at home</span>
+      <div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+      <ul class="cross">
+        <li>Head-to-toe black. A disposable flash turns it into a hole in the picture.</li>
+        <li>Bright white technical fabric and big white sneakers — they blow out and pull the eye off your face.</li>
+        <li>Neon and fluoro. They fight the label and win.</li>
+        <li>Tight stripes and small checks. They crawl and shimmer on the video camera.</li>
+        <li>Slogan tees, and any other brand's logo — <strong>especially another drink</strong>. That frame is unusable and we can't fix it afterwards.</li>
+        <li>Corporate golf shirts, hi-vis, anything you'd wear to a conference.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:6mm;">
+    <div class="panel green">
+      <span class="eyebrow">Pick one hero colour</span>
+      <p style="margin-top:2mm;">Choose <strong>one</strong> strong piece — a chilli-red shirt, a coral dress, a terracotta jacket — and keep the rest of your outfit quiet. If ten people all arrive in cream we've shot a linen advert. Message Clarissa with your hero colour by <strong>Thursday</strong> and she'll spread us across the palette.</p>
+    </div>
+    <div class="panel cream">
+      <span class="eyebrow">Small things that matter</span>
+      <ul style="margin-top:2mm;">
+        <li>Sunglasses off for portraits. A face without eyes is a wasted frame.</li>
+        <li>Big smartwatch off. Nothing dates a photo faster.</li>
+        <li>Bring a second top. Braai smoke and margarita both happen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Colour &amp; wardrobe</span><span>Page 4 of 8</span></div>
+</section>
+
+<!-- =========================== 5 · CAMERAS =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">Know your kit before 15:00</span>
+      <h2 class="display">Your camera</h2>
+    </div>
+    <div class="n">Find your camera type<br>on the cover of this pack</div>
+  </div>
+
+  <p class="lede" style="margin-bottom:4mm; font-size:10.4pt;">Five cameras are running at this braai and none of them see the same afternoon. Read your one. Then read Liezl's and mine, so you know when to get out of the way.</p>
+
+  <div class="stack" style="gap:3mm;">
+    <div class="cam">
+      <div class="hd"><span class="nm">Kodak disposable</span><span class="mt">27 frames · film · flash</span></div>
+      <div class="bd"><ul>
+        <li><strong>Wind on after every single shot.</strong> Thumb the wheel until it stops. No wind, no photo — this is the mistake everybody makes.</li>
+        <li><strong>Stand at least a metre and a half back.</strong> Closer than that and it's a blur. Arm's-length selfies don't work: swap cameras and shoot each other instead.</li>
+        <li><strong>Flash on in shade, indoors, and everywhere after 17:00.</strong> Hold the button until the little light glows, then shoot. It takes about eight seconds to charge — count them.</li>
+        <li>The flash reaches about three metres. Past that it does nothing, so don't waste one on the view.</li>
+        <li>Keep the sun behind <em>you</em>, not behind your subject, or you'll get a silhouette. The exception is shot 11, where a silhouette is the point.</li>
+        <li>Fingers off the top corners — that's the lens and the flash.</li>
+      </ul></div>
+    </div>
+
+    <div class="cam">
+      <div class="hd"><span class="nm">Kodak Charmera</span><span class="mt">Tiny · digital · lo-fi</span></div>
+      <div class="bd"><ul>
+        <li>Charged, and a card in it if yours takes one, <em>before</em> you get a drink. Check it works on the first frame.</li>
+        <li>It loves light and hates shade. Shoot it hard between 15:00 and 18:30, then let the film cameras take over.</li>
+        <li>It costs nothing per frame — shoot ten for every one you'd take on film. Ten to one is a good ratio.</li>
+        <li>Lo-fi and slightly wrong is the whole point. Don't chase sharpness, chase the moment.</li>
+        <li>Get close where the disposables can't: hands, ice, labels, a face across the table.</li>
+        <li>Card or camera back to me at wrap so it gets dumped that night.</li>
+      </ul></div>
+    </div>
+
+    <div class="cam">
+      <div class="hd"><span class="nm">Underwater disposable</span><span class="mt">27 frames · film · no flash</span></div>
+      <div class="bd"><ul>
+        <li><strong>No flash. Bright daylight only.</strong> In shade it goes to mud, so keep it in the sun and finish it before the light drops.</li>
+        <li>You are the pool, the sea, the ice and the hose. Get it wet — that's what it's for.</li>
+        <li>Push it into the ice bin among the cans. Half-under, half-above the water is the frame everybody wants and almost nobody takes.</li>
+        <li>Still a metre and a half minimum, and still wind on every frame.</li>
+        <li>Water on the lens is a look, not a mistake. Wipe it only if you want the clean one.</li>
+      </ul></div>
+    </div>
+
+    <div class="two">
+      <div class="cam">
+        <div class="hd"><span class="nm">Liezl · Fujifilm</span><span class="mt">Hero stills</span></div>
+        <div class="bd"><ul>
+          <li>Liezl carries the shots that <em>have</em> to work: product in hand, faces, the table, the light.</li>
+          <li>If she's set something up, give her the room — then shoot the same moment from the side. Two angles on one moment beats two half-moments.</li>
+          <li>Don't walk through her frame to get to the fridge. Go around.</li>
+        </ul></div>
+      </div>
+      <div class="cam">
+        <div class="hd"><span class="nm">Johannes · Sony</span><span class="mt">Vintage video · sound</span></div>
+        <div class="bd"><ul>
+          <li>Long takes with sound rolling: pours, fire, laughing, the wind, the tongs.</li>
+          <li>If I'm rolling on you, carry on and don't look down the barrel unless I ask.</li>
+          <li>I'm the producer too. Anything you need — a can, a lift, a break — come to me.</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Your camera</span><span>Page 5 of 8</span></div>
+</section>
+
+<!-- =========================== 6 · THE TWELVE =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">Everyone brings these home</span>
+      <h2 class="display">The twelve</h2>
+    </div>
+    <div class="n">Tick as you go<br>Twelve of your frames</div>
+  </div>
+
+  <p class="lede" style="margin-bottom:4mm;">Ten people shooting the same twelve things is the point — twelve moments through ten pairs of eyes. Nothing here needs setting up. Wait for it to happen, then take it.</p>
+
+  <div>
+    <div class="shot"><div class="box"></div><div class="num">1</div><div class="txt"><strong>The cooler box, opened</strong><span>From above, hands going in. Ice, cans, nothing else in the frame.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">2</div><div class="txt"><strong>The first crack</strong><span>Someone opening a can. Get the hands and the label in it, from a metre and a half.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">3</div><div class="txt"><strong>The pour</strong><span>Over ice, into a glass, mid-stream. Ask them to go slow and pour it twice if you miss it.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">4</div><div class="txt"><strong>Condensation</strong><span>A cold can sweating in the sun, label facing you, no thumb over the word Fuego. This is the frame the brand actually needs.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">5</div><div class="txt"><strong>Tongs and fire</strong><span>Whoever's on the braai, shot from the side, with smoke in it.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">6</div><div class="txt"><strong>The meat on the grid</strong><span>As close as your camera lets you. Wors, chops, sosaties, char.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">7</div><div class="txt"><strong>Clarissa's table</strong><span>The whole spread in one frame — salads, breads, cans, glasses. Stand on a chair if you have to.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">8</div><div class="txt"><strong>A portrait of whoever handed you your camera</strong><span>One frame. Flash on. Eyes open, sunglasses off, no posing beyond standing still.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">9</div><div class="txt"><strong>Someone laughing who doesn't know</strong><span>No warning, no “say cheese”. If they look at the lens you've missed it.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">10</div><div class="txt"><strong>Hands</strong><span>Just hands. Holding a can, tearing bread, reaching across the table, passing the salt.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">11</div><div class="txt"><strong>The view</strong><span>Sunset over the Atlantic with a can in the near corner of the frame. Shoot straight into the light — this is the one where a silhouette wins.</span></div></div>
+    <div class="shot"><div class="box"></div><div class="num">12</div><div class="txt"><strong>The end of it</strong><span>Empties, stacked plates, melted ice, last light. Take it when I call wrap, not before.</span></div></div>
+  </div>
+
+  <div class="panel green" style="margin-top:5mm;">
+    <span class="eyebrow">Then stop counting</span>
+    <p style="margin-top:2mm;">That's twelve down and about fifteen left on a disposable. The rest of the roll is yours — page 7.</p>
+  </div>
+
+  <div class="pfoot"><span>The twelve</span><span>Page 6 of 8</span></div>
+</section>
+
+<!-- =========================== 7 · YOUR CALL + RULES =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">The rest of the roll</span>
+      <h2 class="display">Your call</h2>
+    </div>
+    <div class="n">Roughly fifteen frames<br>Nobody is checking</div>
+  </div>
+
+  <p class="lede" style="margin-bottom:5mm;">This is the half of the day we can't brief. The twelve get us the campaign; these get us the afternoon. If you're stuck, here are ten ways to spend them — but the best frame you take today won't be on this list.</p>
+
+  <div class="two">
+    <div>
+      <ul>
+        <li>The thing nobody else is looking at.</li>
+        <li>The person you came with, doing nothing in particular.</li>
+        <li>A frame with no people in it at all.</li>
+        <li>Your own feet, wherever they are.</li>
+        <li>Something ugly — a full ashtray, a chewed corn cob, a wet tea towel. Real beats pretty every time.</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>Whatever made you laugh in the last ten minutes.</li>
+        <li>The worst photo you can take on purpose.</li>
+        <li>Your camera pointed into a mirror or a window.</li>
+        <li>Someone else shooting someone else.</li>
+        <li><strong>The last frame:</strong> whatever's in front of you when I call wrap. Don't think about it. Just press it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hair" style="margin:6mm 0 5mm;"></div>
+
+  <span class="eyebrow">Not negotiable</span>
+  <h3 class="display" style="margin:1.5mm 0 3.5mm;">Eight rules of the day</h3>
+
+  <ol class="rulesnum">
+    <li><strong>Everyone in a frame with a can is over 18 and reads 25 or older.</strong> No child, and nobody who could be mistaken for one, in a picture with alcohol or at the fire. That's the code South African drinks brands advertise under, and one frame breaking it costs us the whole set.</li>
+    <li><strong>Nobody appears drunk in a picture we use.</strong> Enjoying the afternoon, absolutely. Falling over, no. Pace yourself — it's four hours and there's water on the table all day.</li>
+    <li><strong>Nothing with car keys, driving, or a can anywhere near a car.</strong> Ever, in any frame, even as a joke.</li>
+    <li><strong>Only Doña Fuego in shot.</strong> No other drinks brands, no competitor cans, no wine labels, no branded glassware. Move it out of frame <em>before</em> you press the button — there's no fixing it afterwards.</li>
+    <li><strong>No phones in frame.</strong> Not on the table, not in a hand, not charging on the counter. Nothing dates a photograph faster.</li>
+    <li><strong>Shoot people the way you'd want to be shot.</strong> Every frame is fair game for Instagram and Checkers point-of-sale. If someone says no, that's a no, and it's the end of it.</li>
+    <li><strong>Sign the release at the table before you pick up a camera.</strong> One page, thirty seconds.</li>
+    <li><strong>Cameras back to me at 19:00, with your name on them.</strong> Films go to the lab Monday, digital cards get dumped the same night, and everybody gets the full set back.</li>
+  </ol>
+
+  <div class="panel cream" style="margin-top:6mm;">
+    <span class="eyebrow green">And then</span>
+    <p style="margin-top:2mm;">Every frame — the good, the blurred and the badly wound-on — comes back to you in a shared album. What Doña Fuego uses gets credited to whoever shot it. So put your name on your camera properly, and take the risky one.</p>
+  </div>
+
+  <div class="pfoot"><span>Your call · Rules of the day</span><span>Page 7 of 8</span></div>
+</section>
+
+<!-- =========================== 8 · LOAD-IN =========================== -->
+<section class="page">
+  <div class="phead">
+    <div class="t">
+      <span class="eyebrow">Crew only · 12:00 call</span>
+      <h2 class="display">Load-in &amp; styling</h2>
+    </div>
+    <div class="n">Clarissa — styling &amp; stock<br>Johannes — cameras &amp; admin</div>
+  </div>
+
+  <p class="lede" style="margin-bottom:4mm; font-size:10.4pt;">Nothing on this list can be bought at 15:00. Everything lands at 367 Ocean View Drive by <strong>12:00</strong>, and the fire is laid before the first guest walks in at 14:00.</p>
+
+  <div class="two dense" style="gap:6mm;">
+    <div class="stack" style="gap:4mm;">
+      <div>
+        <span class="kicker">Stock &amp; cold chain</span><div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <ul>
+          <li>Margarita, Spicy Margarita, Paloma and <strong>Non-Alc Margarita</strong> — chilled cases plus a warm reserve to ice down through the day.</li>
+          <li><strong>Hero cans:</strong> a dozen perfect cans set aside — no dents, no scuffs, no fingerprints. These are the only ones that go in front of Liezl.</li>
+          <li>Sealed 4-packs in the outer sleeve for the pack shot.</li>
+          <li>Branded cooler box plus two or three plain ones. Ice in bags — block for the bin, crushed for the glasses. More than you think, then one more bag.</li>
+          <li>A dedicated ice bin for shots 1 and the underwater camera. Nothing goes in it but ice, water and cans.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="kicker">Bar</span><div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <ul>
+          <li>Short tumblers and mismatched glasses. Nothing with another brand on it.</li>
+          <li>Limes, lemons, grapefruit, fresh jalapeño, coriander, flaked salt for the rims.</li>
+          <li>Jugs of iced water on the table from the start, and visible all day.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="kicker">Fire &amp; food</span><div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <ul>
+          <li>Charcoal, firelighters, tongs, grid, brush, ash bucket. Fire laid by 13:30, lit at 15:45.</li>
+          <li>Boerewors, lamb chops, chicken sosaties, prawns. A vegetarian option that photographs as well as the meat does.</li>
+          <li>Salads built for colour: tomato, watermelon and feta, charred corn, green leaves.</li>
+          <li>Breads, butter, braai broodjies, condiments in bowls rather than bottles.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stack" style="gap:4mm;">
+      <div>
+        <span class="kicker">Table &amp; props</span><div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <ul>
+          <li>Cream or natural linen cloth, wooden boards, enamel plates, cloth napkins.</li>
+          <li>Candles and hurricane lamps for after 18:45 — lit before the light goes, not after.</li>
+          <li>Straw hats, an old radio, a speaker and a playlist that runs four hours without a gap.</li>
+          <li>Two spare tops in the wardrobe palette, in case someone arrives in black or in another brand's logo.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="kicker">Cameras (Johannes)</span><div class="hair" style="margin:1.5mm 0 2.5mm;"></div>
+        <ul>
+          <li>Ten cameras <strong>numbered 1–10 with tape and marker before anyone arrives</strong>, logged against names as they're handed out.</li>
+          <li>Two spare disposables. Somebody always finishes early or opens the back.</li>
+          <li>Charmeras charged and cards formatted the night before.</li>
+          <li>Sony: batteries charged, spare tape or card, and a working sound check before 14:00.</li>
+          <li>Liezl: spare batteries and cards on the table, not in a car.</li>
+          <li>A marked box by the door for cameras at wrap.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Admin</span>
+        <ul style="margin-top:2mm;">
+          <li>Ten printed copies of this pack, plus a spare.</li>
+          <li>Ten release forms and pens on the table by 13:45.</li>
+          <li>WhatsApp group live Thursday, wardrobe hero colours collected by Thursday night.</li>
+          <li>Sunscreen, bin bags, a first-aid kit, and an e-hailing budget for anyone who shouldn't drive.</li>
+        </ul>
+      </div>
+      <div class="panel green">
+        <span class="eyebrow">After wrap</span>
+        <p style="margin-top:2mm; font-size:9pt;">Films to the lab <strong>Monday</strong> for develop and scan. Digital cards dumped Saturday night. Full album back to everyone who shot, and a first selection to Clarissa by <strong>Friday 18 September</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Load-in &amp; styling · Crew</span><span>Page 8 of 8</span></div>
+</section>
+
+</body>
+</html>
