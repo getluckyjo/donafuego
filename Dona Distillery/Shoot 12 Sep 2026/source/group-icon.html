@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family:'Bevan'; font-weight:400; src:url(Bevan-400.woff2) format('woff2'); }
+@font-face { font-family:'Oswald'; font-weight:400 600; src:url(Oswald-400.woff2) format('woff2'); }
+*{margin:0;padding:0;} html,body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; background:var(--bg); }
+.icon{ display:block; width:1024px; height:1024px; }
+</style></head>
+<body>
+<svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs><clipPath id="bodyclip"><rect x="232" y="318" width="560" height="392" rx="46"/></clipPath></defs>
+
+  <rect width="1024" height="1024" fill="var(--bg)"/>
+
+  <!-- wordmark -->
+  <text x="512" y="196" text-anchor="middle" fill="var(--fg)"
+        font-family="Oswald" font-weight="600" font-size="46" letter-spacing="12">DOÑA FUEGO</text>
+
+  <!-- flash burst, kept clear of the wordmark -->
+  <g stroke="var(--flash)" stroke-width="14" stroke-linecap="round">
+    <line x1="699" y1="296" x2="699" y2="248"/>
+    <line x1="765" y1="304" x2="800" y2="264"/>
+    <line x1="633" y1="304" x2="598" y2="264"/>
+    <line x1="810" y1="340" x2="858" y2="316"/>
+  </g>
+
+  <!-- camera -->
+  <rect x="232" y="318" width="560" height="392" rx="46" fill="var(--fg)"/>
+  <g clip-path="url(#bodyclip)"><rect x="232" y="662" width="560" height="48" fill="#D6746A"/></g>
+  <rect x="272" y="354" width="84" height="58" rx="13" fill="var(--dark)"/>
+  <rect x="640" y="356" width="118" height="90" rx="17" fill="var(--flash)"/>
+  <circle cx="452" cy="518" r="118" fill="var(--dark)"/>
+  <circle cx="452" cy="518" r="68" fill="#A00000"/>
+  <circle cx="416" cy="482" r="21" fill="#F3ECDC"/>
+  <circle cx="690" cy="598" r="48" fill="var(--dark)"/>
+  <circle cx="690" cy="598" r="15" fill="var(--fg)"/>
+
+  <text x="512" y="856" text-anchor="middle" fill="var(--fg)"
+        font-family="Bevan" font-size="76" letter-spacing="2">BRAAI SHOOT</text>
+  <text x="512" y="916" text-anchor="middle" fill="var(--flash)"
+        font-family="Oswald" font-weight="600" font-size="38" letter-spacing="10">12 SEPT 2026</text>
+</svg>
+</body></html>
