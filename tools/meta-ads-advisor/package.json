@@ -1,0 +1,15 @@
+{
+  "name": "meta-ads-advisor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Read-only weekly advisor: pulls Meta Ads insights for the Fuego On Demand campaign and asks Claude for scale/hold/kill recommendations.",
+  "type": "module",
+  "scripts": {
+    "start": "node advisor.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0",
+    "dotenv": "^16.4.5",
+    "zod": "^4.0.0"
+  }
+}

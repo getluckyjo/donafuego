@@ -1,0 +1,6 @@
+{
+  "_comment": "Copy to orders.json and update weekly. Meta can't see Sixty60 orders — this is how you tell Claude what actually sold. Pull the count from the Sixty60/Checkers seller dashboard for the same date range as META_DATE_PRESET.",
+  "date_range": "2026-08-11 to 2026-08-17",
+  "orders": 0,
+  "revenue_zar": 0
+}
