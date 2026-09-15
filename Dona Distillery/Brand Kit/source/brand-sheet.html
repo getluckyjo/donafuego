@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Doña Fuego — Brand Sheet</title>
+<style>
+@font-face{font-family:'Bevan';font-weight:400;src:url(Bevan-400.woff2) format('woff2');}
+@font-face{font-family:'Oswald';font-weight:400 600;src:url(Oswald-400.woff2) format('woff2');}
+@font-face{font-family:'Work Sans';font-weight:400 600;src:url(WorkSans-400.woff2) format('woff2');}
+@font-face{font-family:'Work Sans';font-style:italic;font-weight:400;src:url(WorkSans-400-italic.woff2) format('woff2');}
+:root{--cream:#F3ECDC;--cream-deep:#EAE0CB;--paper:#FAF6EC;--white:#fff;
+--forest:#14522A;--forest-deep:#0B3D1E;--leaf:#4C8A2E;--lime:#A8C13F;
+--coral:#D6746A;--coral-deep:#C95F52;--chilli:#A00000;--ink:#2C2A21;--ink-soft:#5A574A;--line:#D9CEB6;
+--display:'Bevan',Georgia,serif;--caps:'Oswald','Arial Narrow',sans-serif;--body:'Work Sans',Helvetica,Arial,sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}@page{size:A4;margin:0}
+html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--body);color:var(--ink);font-size:9pt;line-height:1.5;background:#888}
+.page{width:210mm;height:297mm;background:var(--cream);padding:15mm 16mm 12mm;overflow:hidden;
+ display:flex;flex-direction:column;page-break-after:always}
+.page:last-child{page-break-after:auto}
+.display{font-family:var(--display);color:var(--forest);text-transform:uppercase;line-height:1.06}
+h1{font-size:30pt}h2{font-size:15pt}
+.eyebrow{font-family:var(--caps);font-weight:600;font-size:7.6pt;letter-spacing:.28em;text-transform:uppercase;color:var(--chilli);display:block}
+.kicker{font-family:var(--caps);font-weight:600;font-size:8.6pt;letter-spacing:.14em;text-transform:uppercase;color:var(--forest)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2.5pt solid var(--forest);padding-bottom:3mm;margin-bottom:6mm}
+.head .n{font-family:var(--caps);font-size:7.2pt;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);text-align:right;line-height:1.55}
+.hair{height:.75pt;background:var(--line);margin:2mm 0 3mm}
+.sw{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+.sw .c{border-radius:2.5mm;border:.5pt solid rgba(44,42,33,.2);height:24mm;display:flex;align-items:flex-end;padding:2.5mm}
+.sw .c span{font-family:var(--caps);font-size:6.6pt;letter-spacing:.1em}
+.sw .nm{font-family:var(--caps);font-size:7.6pt;letter-spacing:.1em;text-transform:uppercase;margin-top:2mm;color:var(--ink)}
+.sw .hx{font-family:var(--caps);font-size:6.6pt;letter-spacing:.08em;color:var(--ink-soft)}
+.sw .us{font-size:7.4pt;color:var(--ink-soft);line-height:1.35;margin-top:.8mm}
+.grp{margin-bottom:6mm}
+.panel{background:var(--paper);border:.75pt solid var(--line);border-radius:3mm;padding:4mm 4.5mm}
+.panel.forest{background:var(--forest);border-color:var(--forest);color:var(--cream)}
+.panel.forest .kicker,.panel.forest .display{color:var(--cream)}
+.panel.forest .eyebrow{color:var(--lime)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+ul{list-style:none}ul li{position:relative;padding-left:4mm;margin-bottom:1.4mm}
+ul li:before{content:'';position:absolute;left:0;top:1.5mm;width:1.6mm;height:1.6mm;border-radius:50%;background:var(--coral)}
+.spec{border-bottom:.75pt solid var(--line);padding:3mm 0}
+.spec .lbl{font-family:var(--caps);font-size:6.8pt;letter-spacing:.2em;text-transform:uppercase;color:var(--chilli);margin-bottom:1.5mm}
+.foot{margin-top:auto;padding-top:4mm;border-top:.75pt solid var(--line);display:flex;justify-content:space-between;
+ font-family:var(--caps);font-size:6.6pt;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+</style></head><body>
+
+<section class="page">
+  <div class="head">
+    <div><span class="eyebrow">Doña Fuego Tequila</span><h1 class="display">Brand sheet</h1></div>
+    <div class="n">Colour system<br>Values live in design-tokens.css</div>
+  </div>
+
+  <div class="grp">
+    <span class="kicker">Grounds</span><div class="hair"></div>
+    <div class="sw">
+      <div><div class="c" style="background:#F3ECDC"></div><div class="nm">Cream</div><div class="hx">#F3ECDC</div><div class="us">The default background. Our “white”</div></div>
+      <div><div class="c" style="background:#EAE0CB"></div><div class="nm">Cream deep</div><div class="hx">#EAE0CB</div><div class="us">Alternating bands</div></div>
+      <div><div class="c" style="background:#FAF6EC"></div><div class="nm">Paper</div><div class="hx">#FAF6EC</div><div class="us">Panels on cream</div></div>
+      <div><div class="c" style="background:#FFFFFF"></div><div class="nm">White</div><div class="hx">#FFFFFF</div><div class="us">Cards only, never a full page</div></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <span class="kicker">Greens</span><div class="hair"></div>
+    <div class="sw">
+      <div><div class="c" style="background:#14522A"><span style="color:#F3ECDC">Workhorse</span></div><div class="nm">Forest</div><div class="hx">#14522A</div><div class="us">Headlines, borders, dark bands</div></div>
+      <div><div class="c" style="background:#0B3D1E"></div><div class="nm">Forest deep</div><div class="hx">#0B3D1E</div><div class="us">Hover, deepest shade</div></div>
+      <div><div class="c" style="background:#4C8A2E"></div><div class="nm">Leaf</div><div class="hx">#4C8A2E</div><div class="us">The wordmark green</div></div>
+      <div><div class="c" style="background:#A8C13F"></div><div class="nm">Lime</div><div class="hx">#A8C13F</div><div class="us">Dark grounds only</div></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <span class="kicker">Warms &amp; ink</span><div class="hair"></div>
+    <div class="sw">
+      <div><div class="c" style="background:#D6746A"></div><div class="nm">Coral</div><div class="hx">#D6746A</div><div class="us">Paloma. Fills and blocks</div></div>
+      <div><div class="c" style="background:#C95F52"></div><div class="nm">Coral deep</div><div class="hx">#C95F52</div><div class="us">Paloma as text on cream</div></div>
+      <div><div class="c" style="background:#A00000"><span style="color:#F3ECDC">Seasoning</span></div><div class="nm">Chilli</div><div class="hx">#A00000</div><div class="us">Spicy. Eyebrows, one hero word</div></div>
+      <div><div class="c" style="background:#2C2A21"></div><div class="nm">Ink</div><div class="hx">#2C2A21</div><div class="us">Body text. Never pure black</div></div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <span class="eyebrow">Rules</span>
+      <ul style="margin-top:2mm">
+        <li><strong>Cream is the default.</strong> A white page stops looking like us immediately.</li>
+        <li><strong>Chilli is a seasoning.</strong> One eyebrow, one hero word, one button. Three red things fighting means it's gone wrong.</li>
+        <li><strong>Never pure black or cool grey.</strong> Ink is warm on purpose.</li>
+        <li><strong>Lime only on dark.</strong> Unreadable on cream.</li>
+      </ul>
+    </div>
+    <div class="panel forest">
+      <span class="eyebrow">Product colours</span>
+      <ul style="margin-top:2mm">
+        <li>Margarita — Forest #14522A</li>
+        <li>Paloma — Coral deep #C95F52</li>
+        <li>Spicy Margarita — Chilli #A00000</li>
+        <li>Non-Alc — Lime on dark, Leaf on light</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Doña Fuego · Brand Kit</span><span>Colour · 1 of 2</span></div>
+</section>
+
+<section class="page">
+  <div class="head">
+    <div><span class="eyebrow">Doña Fuego Tequila</span><h1 class="display">Type &amp; tone</h1></div>
+    <div class="n">Three faces, one job each<br>Files in assets/fonts</div>
+  </div>
+
+  <div class="spec">
+    <div class="lbl">Bevan — display · headlines only · always uppercase</div>
+    <div class="display" style="font-size:26pt">Real tequila.<br>No BS.</div>
+    <p style="margin-top:2mm;font-size:8pt;color:var(--ink-soft)">Never a paragraph. Never below 16pt. Never lowercase. Never letterspaced beyond .01em.</p>
+  </div>
+
+  <div class="spec">
+    <div class="lbl">Oswald — eyebrows, labels, buttons, numbers</div>
+    <div style="font-family:var(--caps);font-weight:600;font-size:12pt;letter-spacing:.28em;text-transform:uppercase;color:var(--chilli)">Share of cooler box</div>
+    <div style="font-family:var(--caps);font-weight:600;font-size:10pt;letter-spacing:.16em;text-transform:uppercase;color:var(--forest);margin-top:2.5mm">Margarita · Paloma · Spicy · Non-Alc</div>
+    <p style="margin-top:2mm;font-size:8pt;color:var(--ink-soft)">The wide tracking is not optional — it's what makes it ours rather than just Oswald.</p>
+  </div>
+
+  <div class="spec">
+    <div class="lbl">Work Sans — all running text</div>
+    <p style="font-size:11pt;max-width:46ch">Real tequila and real juice in a can, built for the cooler box. Two cans on a Saturday, no bottle, no shaker, no mixing.</p>
+    <p style="margin-top:2mm;font-size:8pt;color:var(--ink-soft)">400 for body, 600 for emphasis, <em>italic for asides</em>. Nothing heavier. Cap the lede at 46 characters per line.</p>
+  </div>
+
+  <div class="two" style="margin-top:5mm">
+    <div class="panel">
+      <span class="eyebrow">Words we use</span>
+      <p style="margin-top:2mm;font-size:8.6pt">tequila · real juice · cooler box · braai · ice · cold · Saturday · grab-and-go · no mixing · the good stuff</p>
+      <div class="hair"></div>
+      <span class="eyebrow">Words we don't</span>
+      <p style="margin-top:2mm;font-size:8.6pt;color:var(--ink-soft)">premium · crafted · elevated · indulge · unleash · journey · curated · sip · tantalising · perfect for any occasion</p>
+    </div>
+    <div class="panel forest">
+      <span class="eyebrow">Three tests</span>
+      <ul style="margin-top:2mm">
+        <li>Could this be any other drink?</li>
+        <li>Would she screenshot it, or scroll past?</li>
+        <li>Does it look like a friend made it, or an agency?</li>
+      </ul>
+      <div style="height:.75pt;background:rgba(243,236,220,.25);margin:3.5mm 0"></div>
+      <p style="font-size:8.4pt">Compliance before every post. Nobody under 25 in frame with a can, nobody drunk, no vehicles, no other brands, 18+ on every boost.</p>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:4mm">
+    <div class="panel">
+      <span class="eyebrow">Caption shapes</span>
+      <div style="margin-top:2.5mm;font-size:8.6pt;line-height:1.5">
+        <strong style="font-family:var(--caps);letter-spacing:.1em;text-transform:uppercase;font-size:7.4pt;color:var(--forest)">The flat statement</strong><br>
+        <em>Two cans, one cooler box. That's the whole plan.</em>
+        <div class="hair" style="margin:2.5mm 0"></div>
+        <strong style="font-family:var(--caps);letter-spacing:.1em;text-transform:uppercase;font-size:7.4pt;color:var(--forest)">The occasion</strong><br>
+        <em>Fresnaye. Braai. Third round of palomas.</em>
+        <div class="hair" style="margin:2.5mm 0"></div>
+        <strong style="font-family:var(--caps);letter-spacing:.1em;text-transform:uppercase;font-size:7.4pt;color:var(--forest)">The fact</strong><br>
+        <em>Real tequila, real lemon and lime. Nothing else in it.</em>
+      </div>
+      <p style="margin-top:2.5mm;font-size:7.8pt;color:var(--ink-soft)">Most captions under 15 words. The first line is the only one most people read.</p>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Export &amp; grid</span>
+      <table style="width:100%;border-collapse:collapse;margin-top:2.5mm;font-size:8.4pt">
+        <tr><td style="padding:1.2mm 0;border-bottom:.5pt solid var(--line)"><strong>Feed — default</strong></td><td style="text-align:right;font-family:var(--caps);color:var(--forest)">1080×1350 · 4:5</td></tr>
+        <tr><td style="padding:1.2mm 0;border-bottom:.5pt solid var(--line)">Feed — square</td><td style="text-align:right;font-family:var(--caps);color:var(--ink-soft)">1080×1080 · 1:1</td></tr>
+        <tr><td style="padding:1.2mm 0;border-bottom:.5pt solid var(--line)">Stories / Reels</td><td style="text-align:right;font-family:var(--caps);color:var(--ink-soft)">1080×1920 · 9:16</td></tr>
+        <tr><td style="padding:1.2mm 0">JPEG, sRGB, q85–90</td><td style="text-align:right;font-family:var(--caps);color:var(--ink-soft)">under 1MB</td></tr>
+      </table>
+      <div class="hair" style="margin:3mm 0"></div>
+      <ul style="font-size:8.2pt">
+        <li>Lay the next nine out before scheduling</li>
+        <li>No two adjacent posts look alike</li>
+        <li>Product roughly every third post</li>
+        <li>Faces in at least a third of them</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Doña Fuego · Brand Kit</span><span>Type &amp; tone · 2 of 2</span></div>
+</section>
+</body></html>

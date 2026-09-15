@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Doña Fuego — design tokens
+   The single source of truth for colour, type and spacing.
+   Sampled from the label artwork and matched to the live site.
+   Copy this file into any web project and use the variables, never raw hex.
+   ========================================================================== */
+
+/* ---- Fonts (self-hosted, files in assets/fonts) ---- */
+@font-face { font-family:'Bevan';     font-style:normal; font-weight:400;     font-display:swap; src:url(assets/fonts/Bevan-400.woff2) format('woff2'); }
+@font-face { font-family:'Oswald';    font-style:normal; font-weight:400 600; font-display:swap; src:url(assets/fonts/Oswald-400.woff2) format('woff2'); }
+@font-face { font-family:'Work Sans'; font-style:normal; font-weight:400 600; font-display:swap; src:url(assets/fonts/WorkSans-400.woff2) format('woff2'); }
+@font-face { font-family:'Work Sans'; font-style:italic; font-weight:400;     font-display:swap; src:url(assets/fonts/WorkSans-400-italic.woff2) format('woff2'); }
+
+:root {
+  /* ---- Grounds ---- */
+  --cream:        #F3ECDC;  /* default background. The brand's "white" */
+  --cream-deep:   #EAE0CB;  /* alternating band */
+  --paper:        #FAF6EC;  /* panels sitting on cream */
+  --white:        #FFFFFF;  /* cards only, never a full page */
+
+  /* ---- Greens ---- */
+  --forest:       #14522A;  /* display headings, the can's lettering green */
+  --forest-deep:  #0B3D1E;  /* hover / deepest shade */
+  --leaf:         #4C8A2E;  /* the wordmark green */
+  --lime:         #A8C13F;  /* accent on dark grounds only */
+
+  /* ---- Warms ---- */
+  --coral:        #D6746A;  /* Paloma */
+  --coral-deep:   #C95F52;  /* Paloma, text-safe on cream */
+  --chilli:       #A00000;  /* Spicy Margarita. Eyebrows and one hero word */
+
+  /* ---- Ink ---- */
+  --ink:          #2C2A21;  /* body text. Warm near-black, never #000 */
+  --ink-soft:     #5A574A;  /* secondary text, captions */
+  --line:         #D9CEB6;  /* hairlines and borders */
+
+  /* ---- Type stacks ---- */
+  --font-display: 'Bevan', Georgia, serif;                    /* headlines. ALWAYS uppercase */
+  --font-caps:    'Oswald', 'Arial Narrow', sans-serif;       /* eyebrows, labels, buttons, numbers */
+  --font-body:    'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  /* ---- Layout ---- */
+  --maxw:   1080px;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(44, 42, 33, .10);
+  --border: 2px solid var(--forest);   /* the brand's signature hard outline */
+}
+
+/* ---- Type roles ----------------------------------------------------------
+   .display   Bevan, uppercase, forest. Headlines only. Never a paragraph.
+   .eyebrow   Oswald 600, 0.28em tracking, uppercase, chilli. Sits above a headline.
+   .lede      Work Sans, larger, max 46 characters wide.
+   body       Work Sans 400, 17px, line-height 1.65.
+   -------------------------------------------------------------------------- */
+
+.display { font-family: var(--font-display); font-weight: 400; color: var(--forest);
+           text-transform: uppercase; line-height: 1.08; letter-spacing: .01em; }
+.eyebrow { font-family: var(--font-caps); font-weight: 600; font-size: .82rem;
+           letter-spacing: .28em; text-transform: uppercase; color: var(--chilli); display: block; }
+.lede    { font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: var(--ink); max-width: 46ch; }
+.muted   { color: var(--ink-soft); }
+
+/* ---- Buttons ---- */
+.btn { display: inline-block; font-family: var(--font-caps); font-weight: 600; font-size: .9rem;
+       letter-spacing: .16em; text-transform: uppercase; text-decoration: none;
+       padding: 15px 30px; border-radius: 999px; border: var(--border); cursor: pointer; }
+.btn-solid  { background: var(--forest); color: var(--cream); }
+.btn-ghost  { background: transparent; color: var(--forest); }
+.btn-chilli { background: var(--chilli); border-color: var(--chilli); color: var(--cream); }
+
+/* ---- Bands ---- */
+.band-paper  { background: var(--paper);  border-top: var(--border); border-bottom: var(--border); }
+.band-forest { background: var(--forest); color: var(--cream); }
+.band-forest .display { color: var(--cream); }
+.band-forest .eyebrow { color: var(--lime); }
