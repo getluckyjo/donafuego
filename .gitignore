@@ -1,0 +1,8 @@
+# Build artefacts — regenerate, don't commit.
+# The brand kit zip is packed from "Dona Distillery/Brand Kit/", which is tracked:
+#   cd "Dona Distillery" && zip -qr ../Dona-Fuego-Brand-Kit.zip "Brand Kit"
+*.zip
+
+# Office lock files
+~$*
+.DS_Store
