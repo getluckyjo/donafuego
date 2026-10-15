@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cooler Box Sign-off</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bevan&family=Oswald:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* One reading column on cream. Forest for structure, chilli for the number that matters in each block. */
+:root{
+  --bg:#F3ECDC; --card:#FBF7EE; --fg:#1E2A1F; --muted:#5B6559; --rule:#D8CDB5;
+  --forest:#14522A; --chilli:#C8321E; --coral:#E8775A; --ok:#14522A; --warn:#A8620E; --bad:#B42318;
+  --ig-bg:#FFFFFF; --ig-fg:#111; --ig-muted:#737373; --ig-rule:#EFEFEF; --ig-cta:#0095F6;
+  --display:'Bevan',Georgia,serif; --label:'Oswald','Arial Narrow',sans-serif; --body:'Work Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121A14; --card:#1A241C; --fg:#ECE5D4; --muted:#A9B0A3; --rule:#2F3B31;
+    --forest:#7FC08F; --chilli:#F07A62; --coral:#F29A80; --ok:#7FC08F; --warn:#E3A44B; --bad:#F2836F;
+    --ig-bg:#000; --ig-fg:#F5F5F5; --ig-muted:#A8A8A8; --ig-rule:#262626; --ig-cta:#0095F6;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121A14; --card:#1A241C; --fg:#ECE5D4; --muted:#A9B0A3; --rule:#2F3B31;
+  --forest:#7FC08F; --chilli:#F07A62; --coral:#F29A80; --ok:#7FC08F; --warn:#E3A44B; --bad:#F2836F;
+  --ig-bg:#000; --ig-fg:#F5F5F5; --ig-muted:#A8A8A8; --ig-rule:#262626; --ig-cta:#0095F6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;
+  padding-block:32px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:880px;margin:0 auto;display:grid;gap:48px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.1;margin:0;text-wrap:balance;color:var(--forest)}
+h1{font-size:clamp(34px,7vw,54px)}
+h2{font-size:clamp(22px,4vw,30px);padding-top:14px;border-top:3px solid var(--forest)}
+h3{font-family:var(--label);font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:15px;margin:0;color:var(--fg)}
+p{margin:0;max-width:66ch}
+section{display:grid;gap:18px;min-width:0}
+main>*,section>*,.set>*,.ad>*{min-width:0}
+.bar div{min-width:0;text-overflow:ellipsis}
+ul,ol{margin:0;padding-left:20px;display:grid;gap:8px;max-width:66ch}
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--muted)}
+.lede{font-size:18px}
+.note{font-size:14px;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--label);text-transform:uppercase;letter-spacing:.06em;font-size:11.5px;padding:2px 8px;border-radius:999px;border:1px solid currentColor}
+.tag.proj{color:var(--warn)} .tag.live{color:var(--ok)} .tag.todo{color:var(--bad)}
+a{color:var(--chilli)}
+
+/* stat tiles */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.stat b{font-family:var(--display);font-weight:400;font-size:28px;color:var(--chilli);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13.5px;color:var(--muted);line-height:1.35}
+
+/* tables */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+th{font-family:var(--label);font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:12.5px;text-align:left;color:var(--muted);padding:8px 12px 8px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.num{text-align:right}
+th.num{text-align:right}
+td:last-child,th:last-child{padding-right:0}
+tr.total td{font-weight:600;border-bottom:2px solid var(--forest)}
+.k{color:var(--chilli);font-weight:600}
+.neg{color:var(--bad);font-weight:600} .pos{color:var(--ok);font-weight:600}
+
+/* budget bar */
+.bar{display:flex;height:34px;border-radius:8px;overflow:hidden;font-family:var(--label);font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.bar div{display:flex;align-items:center;padding:0 10px;color:#FBF7EE;white-space:nowrap;overflow:hidden}
+.b1{background:#14522A;flex:40} .b2{background:#C8321E;flex:45} .b3{background:#B8892B;flex:15}
+
+/* Instagram mockups */
+.ads{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.ad{display:grid;gap:10px;align-content:start}
+.ad-label{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ad-label h3{font-size:14px}
+.ig{background:var(--ig-bg);color:var(--ig-fg);border:1px solid var(--ig-rule);border-radius:8px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.4}
+.ig-head{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.ig-av{width:32px;height:32px;border-radius:50%;background:#14522A;color:#F3ECDC;display:grid;place-items:center;font-family:var(--display);font-size:13px;flex:none}
+.ig-name{font-weight:600;font-size:13.5px;line-height:1.2}
+.ig-sp{font-size:12px;color:var(--ig-fg)}
+.ig-dots{margin-left:auto;font-weight:700;letter-spacing:1px}
+.ig-img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#ddd}
+.ig-cta{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-bottom:1px solid var(--ig-rule);font-weight:600;font-size:14px;color:var(--ig-cta)}
+.ig-icons{display:flex;gap:14px;padding:10px 12px 4px}
+.ig-icons svg{width:24px;height:24px;stroke:var(--ig-fg);fill:none;stroke-width:1.8}
+.ig-icons .save{margin-left:auto}
+.ig-cap{padding:4px 12px 14px}
+.ig-cap b{font-weight:600}
+.ad-meta{font-size:13px;color:var(--muted);display:grid;gap:2px}
+.ad-meta code{font-size:12px;word-break:break-all}
+
+.set{display:grid;gap:14px;padding-top:6px}
+.set+.set{border-top:1px solid var(--rule);padding-top:22px}
+.set-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+table.grid td{font-size:14px}
+.ads{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+/* reel concept */
+.reel{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px;display:grid;gap:8px;align-content:start}
+
+/* sign-off */
+.sign{background:var(--card);border:2px solid var(--forest);border-radius:12px;padding:20px;display:grid;gap:16px}
+.checks{list-style:none;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+.box{width:18px;height:18px;border:2px solid var(--forest);border-radius:4px;margin-top:3px;display:grid;place-items:center;font-size:13px;line-height:1;color:var(--bg)}
+.box.on{background:var(--forest)}
+.done{color:var(--muted)}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:6px}
+.line{border-bottom:1px solid var(--fg);height:34px}
+.line+span{font-size:13px;color:var(--muted)}
+footer{max-width:880px;margin:0 auto;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--muted)}
+@media print{body{background:#fff}.ig{break-inside:avoid}.ad{break-inside:avoid}section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<main>
+
+<header style="display:grid;gap:14px">
+  <div class="eyebrow">Doña Fuego · Instagram paid media · for sign-off · 15 October 2026</div>
+  <h1>Cooler Box: go-live sign-off</h1>
+  <p class="lede">Three paid Instagram campaigns on a fixed R15,000 a month, built to take <b>@drink_fuego_tequila</b> from 449 to 5,000 followers by 31 January 2027 and to send buyers straight to the Doña Fuego range on Checkers Sixty60.</p>
+  <p class="note">Prepared by Johannes for Danielle. Everything below is built in the Dona Fuego ad account and paused. Nothing spends until this page is signed and the card is on the account. Sales, ROAS and ROI figures are <b>projections</b> from stated assumptions and the brand pro forma; the first two weeks of spend replace them with real numbers.</p>
+</header>
+
+<section aria-labelledby="ask">
+  <h2 id="ask">What you are signing off</h2>
+  <div class="stats">
+    <div class="stat"><b>R15,000</b><span>a month, R500 a day. The pro forma's brand marketing line, not a rand more.</span></div>
+    <div class="stat"><b>16</b><span>Shop ads in four A/B test grids, word for word as they will run</span></div>
+    <div class="stat"><b>4,551</b><span>net new followers needed by 31 Jan, about 1,340 a month</span></div>
+    <div class="stat"><b>+2</b><span>extra 4-packs per store per week, the base rate-of-sale target (projection)</span></div>
+  </div>
+  <ol>
+    <li>The strategy and the budget split.</li>
+    <li>The 16 Shop ads: images, copy, price and links.</li>
+    <li>The Follow Reel concept, with the cuts to come back for a look before they go live.</li>
+    <li>The KPIs and the rules for pausing ads.</li>
+    <li>The rate-of-sale target of 1, 2 or 4 extra 4-packs per store per week, and the ROAS and ROI that follow.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="strategy">
+  <h2 id="strategy">Strategy</h2>
+  <p>Followers are the scoreboard. Rate of sale at Checkers is the point. The plan spends in three lanes that feed each other: Reels find new people and earn the follow, Shop ads put the can and the price in front of people who live near a LiquorShop that delivers on Sixty60, and the Second round catches everyone who engaged and did not buy yet.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Campaign</th><th>Job</th><th>Who sees it</th><th>Optimised for</th></tr></thead>
+    <tbody>
+      <tr><td><b>1 · Follow</b></td><td>Reels to new people, ending on the handle</td><td>Three interest sets: braai and beach occasions (18 to 40), tequila and cocktail drinkers (21 to 40), Checkers and online grocery shoppers (21 to 45)</td><td>ThruPlays, then follows</td></tr>
+      <tr><td><b>2 · Shop on Sixty60</b></td><td>One can, one price, one tap to Checkers</td><td>18 to 45, within 16 km of 15 Sixty60 towns with a Checkers LiquorShop, from Cape Town and Stellenbosch to Durban, Johannesburg, Pretoria and Polokwane, interested in cocktails, tequila, braai, Checkers or online grocery. One ad set per SKU plus one for the full range.</td><td>Link clicks to checkers.co.za</td></tr>
+      <tr><td><b>3 · Second round</b></td><td>Retarget the warm crowd with the Shop ads</td><td>Anyone who engaged with the Instagram account in the last 30 days, capped at 2 views a week</td><td>Link clicks</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><b>Timing.</b> Shop ads run all day. If the readout shows clicks after delivery hours going to waste, budget is weighted to Thursday to Saturday daytime from week two.</li>
+    <li><b>Price in every ad.</b> R169 a 4-pack. Shoppers compare on the shelf, so they see the number before the shelf shows it.</li>
+    <li><b>Landing page.</b> The Margarita and Paloma ads open the full Doña Fuego range on checkers.co.za, the link Francois Botha at Rainmaker Media cleared for our channels on 27 August. The Spicy Margarita ads open its own product page. All links carry UTM tags so the referral reads as instagram / paid on Checkers' side.</li>
+    <li><b>Checkers has signed off.</b> Carina Britz and Francois Botha cleared the ads on 15 October 2026, as you agreed with them.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="budget">
+  <h2 id="budget">Budget</h2>
+  <div class="bar" role="img" aria-label="Budget split: Follow 40 percent, Shop on Sixty60 45 percent, Second round 15 percent">
+    <div class="b1">Follow 40%</div><div class="b2">Shop on Sixty60 45%</div><div class="b3">2nd 15%</div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Campaign</th><th class="num">Per day</th><th class="num">Per month</th><th class="num">Planned unit cost</th><th class="num">Monthly volume</th></tr></thead>
+    <tbody>
+      <tr><td>Follow</td><td class="num">R200</td><td class="num">R6,000</td><td class="num">R5 per follow</td><td class="num">1,200 follows</td></tr>
+      <tr><td>Shop on Sixty60</td><td class="num">R225</td><td class="num">R6,750</td><td class="num">R4 per click</td><td class="num">1,688 clicks</td></tr>
+      <tr><td>Second round</td><td class="num">R75</td><td class="num">R2,250</td><td class="num">R2 per click</td><td class="num">1,125 clicks</td></tr>
+      <tr class="total"><td>Total</td><td class="num">R500</td><td class="num">R15,000</td><td></td><td></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Unit costs are planning estimates. Second round launches once the engagers audience passes 1,000 people; until then its R75 a day stays unspent rather than moved. Trade marketing is a separate R25,000 a month in the pro forma and is untouched by this plan. The total never rises on follower numbers alone, only when Checkers rate of sale moves.</p>
+</section>
+
+<section aria-labelledby="ads">
+  <h2 id="ads">The 16 Shop ads</h2>
+  <p>Four ad sets, four ads each. Every ad set is a two-by-two test: two photos, each run with two caption lines. Line 1 sells the drink and the 60-minute delivery; line 2 sells the occasion and the Checkers exclusive. After the test we know which photo works and which words work, not only which ad won. Seven photos are Liezl's from the Fresnaye braai and one is a disposable-camera frame from the same day. Everyone in frame is over 25.</p>
+  <p>Below, each ad set shows two of its four ads in full. The other two are the same photos with the captions swapped, listed in the grid underneath. Every image carries the under-18 line on a green band, and every caption ends with it.</p>
+  <div class="set">
+    <div class="set-head"><h3>Ad set 1 · Margarita</h3><span class="note">Lands on: Doña Fuego range on checkers.co.za</span></div>
+    <div class="ads">
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo A · the pour · line 1</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/margarita_a.jpg" alt="A guest pours a Doña Fuego Margarita can into a salt-rimmed glass at the table" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Real tequila, real lime, 7%. Doña Fuego Margarita, R169 a 4-pack, delivered by Checkers Sixty60 in 60 minutes. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo B · the cooler box · line 2</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/margarita_b.jpg" alt="The branded Doña Fuego cooler box, open, with Paloma, Margarita and Spicy Margarita cans on ice" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> The drink you bring when everyone else brings wine. Doña Fuego Margarita, R169 a 4-pack, exclusive to Checkers LiquorShop and Sixty60. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+    </div>
+    <div class="tw"><table class="grid">
+      <thead><tr><th>Ad</th><th>Photo</th><th>Caption opens with</th></tr></thead>
+      <tbody>
+        <tr><td>1.A1</td><td>the pour</td><td>Line 1 · “Real tequila, real lime, 7%.”</td></tr>
+        <tr><td>1.A2</td><td>the pour</td><td>Line 2 · “The drink you bring when everyone else brings wine.”</td></tr>
+        <tr><td>1.B1</td><td>the cooler box</td><td>Line 1 · “Real tequila, real lime, 7%.”</td></tr>
+        <tr><td>1.B2</td><td>the cooler box</td><td>Line 2 · “The drink you bring when everyone else brings wine.”</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="set">
+    <div class="set-head"><h3>Ad set 2 · Spicy Margarita</h3><span class="note">Lands on: Spicy Margarita 4 × 250 ml product page on checkers.co.za</span></div>
+    <div class="ads">
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo A · can in ice · line 1</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/spicy_a.jpg" alt="A Spicy Margarita can standing in crushed ice" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Real jalapeño tequila, lemon and lime, 7%. Doña Fuego Spicy Margarita, R169 a 4-pack, delivered by Checkers Sixty60 in 60 minutes. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo B · out of the cooler · line 2</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/spicy_b.jpg" alt="A hand lifting a Spicy Margarita can out of an iced cooler box, disposable-camera shot" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Straight out of the cooler box. Doña Fuego Spicy Margarita, R169 a 4-pack, exclusive to Checkers LiquorShop and Sixty60. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+    </div>
+    <div class="tw"><table class="grid">
+      <thead><tr><th>Ad</th><th>Photo</th><th>Caption opens with</th></tr></thead>
+      <tbody>
+        <tr><td>2.A1</td><td>can in ice</td><td>Line 1 · “Real jalapeño tequila, lemon and lime, 7%.”</td></tr>
+        <tr><td>2.A2</td><td>can in ice</td><td>Line 2 · “Straight out of the cooler box.”</td></tr>
+        <tr><td>2.B1</td><td>out of the cooler</td><td>Line 1 · “Real jalapeño tequila, lemon and lime, 7%.”</td></tr>
+        <tr><td>2.B2</td><td>out of the cooler</td><td>Line 2 · “Straight out of the cooler box.”</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="set">
+    <div class="set-head"><h3>Ad set 3 · Paloma</h3><span class="note">Lands on: Doña Fuego range on checkers.co.za</span></div>
+    <div class="ads">
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo A · picnic table · line 1</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/paloma_a.jpg" alt="A guest at a striped picnic table with a Paloma can in front of her" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Real tequila, real grapefruit, 7%. Doña Fuego Paloma, R169 a 4-pack, delivered by Checkers Sixty60 in 60 minutes. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo B · can at dusk · line 2</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/paloma_b.jpg" alt="A Paloma can on a white wall at dusk, the party out of focus behind it" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Grapefruit, tequila, ice. That's the whole recipe. Doña Fuego Paloma, R169 a 4-pack, exclusive to Checkers LiquorShop and Sixty60. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+    </div>
+    <div class="tw"><table class="grid">
+      <thead><tr><th>Ad</th><th>Photo</th><th>Caption opens with</th></tr></thead>
+      <tbody>
+        <tr><td>3.A1</td><td>picnic table</td><td>Line 1 · “Real tequila, real grapefruit, 7%.”</td></tr>
+        <tr><td>3.A2</td><td>picnic table</td><td>Line 2 · “Grapefruit, tequila, ice. That's the whole recipe.”</td></tr>
+        <tr><td>3.B1</td><td>can at dusk</td><td>Line 1 · “Real tequila, real grapefruit, 7%.”</td></tr>
+        <tr><td>3.B2</td><td>can at dusk</td><td>Line 2 · “Grapefruit, tequila, ice. That's the whole recipe.”</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="set">
+    <div class="set-head"><h3>Ad set 4 · Full range</h3><span class="note">Lands on: Doña Fuego range on checkers.co.za</span></div>
+    <div class="ads">
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo A · the Sixty60 rider · line 1</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/sixty60.jpg" alt="A Checkers Sixty60 rider hands a delivery bag to a smiling customer outside her house" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Ordered at 4. In the cooler box by 5. Doña Fuego Margarita, Spicy Margarita and Paloma, R169 a 4-pack, delivered by Checkers Sixty60. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+      <article class="ad"><div class="ad-label"><span class="eyebrow">Photo B · the toast · line 2</span></div>
+      <div class="ig">
+        <div class="ig-head"><div class="ig-av">DF</div><div><div class="ig-name">drink_fuego_tequila</div><div class="ig-sp">Sponsored</div></div><div class="ig-dots">···</div></div>
+        <img class="ig-img" src="img/cheers.jpg" alt="Hands toasting over a laid table with Doña Fuego Margarita and Paloma cans" loading="lazy">
+        <div class="ig-cta"><span>Shop now</span><span aria-hidden="true">›</span></div>
+        <div class="ig-icons" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.3-8.9C1.2 9.2 2.8 5.5 6.3 5.1c2-.2 3.4.9 5.7 3 2.3-2.1 3.7-3.2 5.7-3 3.5.4 5.1 4.1 3.6 7C19 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><svg viewBox="0 0 24 24"><path d="M22 3 11 13M22 3l-7 18-4-8-8-4z"/></svg><svg class="save" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V3h14z"/></svg></div>
+        <div class="ig-cap"><b>drink_fuego_tequila</b> Three flavours, one cooler box. Doña Fuego Margarita, Spicy Margarita and Paloma, R169 a 4-pack, exclusive to Checkers LiquorShop and Sixty60. Not for sale to persons under the age of 18. Drink responsibly.</div>
+      </div></article>
+    </div>
+    <div class="tw"><table class="grid">
+      <thead><tr><th>Ad</th><th>Photo</th><th>Caption opens with</th></tr></thead>
+      <tbody>
+        <tr><td>4.A1</td><td>the Sixty60 rider</td><td>Line 1 · “Ordered at 4. In the cooler box by 5.”</td></tr>
+        <tr><td>4.A2</td><td>the Sixty60 rider</td><td>Line 2 · “Three flavours, one cooler box.”</td></tr>
+        <tr><td>4.B1</td><td>the toast</td><td>Line 1 · “Ordered at 4. In the cooler box by 5.”</td></tr>
+        <tr><td>4.B2</td><td>the toast</td><td>Line 2 · “Three flavours, one cooler box.”</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <p class="note">Mockups show the 4:5 feed placement. Meta fits the same image to Stories and Explore. The Second round campaign reuses the winning ads from each set.</p>
+</section>
+
+<section aria-labelledby="reels">
+  <h2 id="reels">The Follow Reels</h2>
+  <p>The Follow campaign runs on video, cut to 9:16 from the braai footage. The cuts are in the edit, so this is the concept and copy to approve now; the finished Reels come back to you before they go live.</p>
+  <div class="reel">
+    <div class="card"><h3>Reel 1 · the film, 15 s</h3><p>The opening film recut to vertical. Ends on the handle card.</p><p class="note">Caption: Summer has a cooler box. Follow for the next braai. Not for sale to persons under the age of 18. Drink responsibly.</p></div>
+    <div class="card"><h3>Reels 2 to 4 · guest clips, 7 s</h3><p>Single moments from the shoot: the can coming out of the ice, the clink, the pour. Flash, grain, no polish.</p><p class="note">Caption: Who's bringing the Paloma? Follow @drink_fuego_tequila. Not for sale to persons under the age of 18. Drink responsibly.</p></div>
+    <div class="card"><h3>Open item</h3><p>Music for the long edit is still to be chosen and cleared. Reels need a licensed track before they can run.</p><span class="tag todo">Decision needed</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="name">
+  <h2 id="name">Proposal: one name everywhere</h2>
+  <p>The brand is Doña Fuego on the can, the cooler box and the Checkers shelf, but online it goes by different names. Johannes proposes one name across all of them before the first rand is spent, so the follows we pay for build the name we keep.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Where</th><th>Today</th><th>Proposed</th></tr></thead>
+    <tbody>
+      <tr><td>Instagram handle</td><td>@drink_fuego_tequila</td><td class="k">@donafuego</td></tr>
+      <tr><td>Facebook Page</td><td>Dona Feugo Tequila</td><td class="k">Doña Fuego</td></tr>
+      <tr><td>Website</td><td>fuegotequila.co.za (Shopify store)</td><td class="k">donafuego.co.za</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><b>Rename before launch.</b> The ads point at the Instagram account, not its name, so a rename breaks nothing in Ads Manager. Done first, every paid follow lands on the final handle.</li>
+    <li><b>What has to follow.</b> The old handle stops working the moment it changes, so anything printed with @drink_fuego_tequila needs updating, and Checkers and Rainmaker get the new handle for collab posts.</li>
+    <li><b>Availability.</b> @donafuego has to be free on Instagram. If it is taken, @donafuego.za is the fallback.</li>
+    <li><b>Website.</b> The Shop ads still send people to Checkers. donafuego.co.za carries the brand story, the privacy policy and where to buy, and fuegotequila.co.za redirects to it so no existing link breaks.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="kpi">
+  <h2 id="kpi">Metrics and KPIs</h2>
+  <p>Meta can't see a Checkers checkout, so it will never report a purchase. Ads Manager tells us whether the ads work. The Checkers sell-through in the dashboard tells us whether the spend pays.</p>
+  <div class="tw"><table>
+    <thead><tr><th>KPI</th><th class="num">Target</th><th class="num">Pause line</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Instagram followers</td><td class="num k">5,000 by 31 Jan</td><td class="num">—</td><td>Instagram, read every Monday</td></tr>
+      <tr><td>Net new followers a month</td><td class="num">≥ 1,340</td><td class="num">—</td><td>Instagram insights</td></tr>
+      <tr><td>Cost per net follower</td><td class="num">≤ R5</td><td class="num">R8, two weeks running</td><td>Follow spend ÷ net follower change</td></tr>
+      <tr><td>Cost per ThruPlay (Reels)</td><td class="num">≤ R0.80</td><td class="num">R1.50</td><td>Ads Manager, Follow</td></tr>
+      <tr><td>3-second hold rate</td><td class="num">≥ 35%</td><td class="num">under 20%</td><td>Ads Manager, Follow</td></tr>
+      <tr><td>Link click-through rate</td><td class="num">≥ 1.2%</td><td class="num">under 0.8%</td><td>Ads Manager, Shop</td></tr>
+      <tr><td>Cost per link click</td><td class="num">≤ R4</td><td class="num">R6</td><td>Ads Manager, Shop</td></tr>
+      <tr><td>Frequency, 7 days</td><td class="num">≤ 3</td><td class="num">refresh creative</td><td>Ads Manager, all</td></tr>
+      <tr><td>Rate of sale, Checkers</td><td class="num k">+2 four-packs per store per week</td><td class="num">under +0.3, two months running</td><td>Checkers sell-through, live dashboard</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Reading the 16-ad test.</b> Sixteen ads at R150 each need about R2,400 before every ad has a verdict, roughly 11 days of Shop spend. Meta does not split money evenly, so the first call, after 7 days, is made per ad set on photo against photo and line against line, adding up the two ads that share each. Losing photos and lines are retired together, and the budget settles on the winners by week three.</p>
+  <p class="note">No ad is judged before it has spent R150 or served 3,000 impressions; no ad set before 4 days and R400. Ads that cross a pause line are switched off on the next Monday, Wednesday or Friday check. Moving budget, adding creative or widening the audience waits for Johannes's yes.</p>
+</section>
+
+<section aria-labelledby="ros">
+  <h2 id="ros">Rate of sale</h2>
+  <p>The campaign is judged on one number: extra 4-packs sold per Checkers store per week, read from the Checkers sell-through in the dashboard against the summer baseline.</p>
+  <div class="stats">
+    <div class="stat"><b>~17</b><span>cans per store per week today, the summer baseline (1,109 cases a month across 360 stores, pro forma)</span></div>
+    <div class="stat"><b>+0.3</b><span>extra 4-packs per store per week pays back the R15,000 at Year 1 margin</span></div>
+    <div class="stat"><b>+2</b><span>extra 4-packs per store per week, the base target (projection)</span></div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Scenario</th><th class="num">Extra 4-packs per store per week</th><th class="num">Cans per store per week</th><th class="num">Extra cases a month</th><th class="num">Lift on baseline</th></tr></thead>
+    <tbody>
+      <tr><td>Break-even, Year 1</td><td class="num">0.3</td><td class="num">17 → 18</td><td class="num">84</td><td class="num">8%</td></tr>
+      <tr><td>Conservative</td><td class="num">1</td><td class="num">17 → 21</td><td class="num">260</td><td class="num">23%</td></tr>
+      <tr><td><b>Base</b></td><td class="num k">2</td><td class="num">17 → 25</td><td class="num">520</td><td class="num">47%</td></tr>
+      <tr><td>Strong</td><td class="num">4</td><td class="num">17 → 33</td><td class="num">1,040</td><td class="num">94%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">A month is 4.33 weeks; a case is six 4-packs. The pro forma's 10% Sixty60 uplift is worth about 0.4 extra 4-packs per store per week, so the conservative case asks the campaign to more than double it.</p>
+</section>
+
+<section aria-labelledby="roi">
+  <h2 id="roi">ROAS and ROI</h2>
+  <p><span class="tag proj">Projection</span> One month of R15,000 spend against each rate-of-sale scenario, across all 360 stores.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Result, per month</th><th class="num">Conservative</th><th class="num">Base</th><th class="num">Strong</th></tr></thead>
+    <tbody>
+      <tr><td>Extra 4-packs per store per week</td><td class="num">1</td><td class="num">2</td><td class="num">4</td></tr>
+      <tr class="total"><td>Extra 4-packs a month</td><td class="num">1,560</td><td class="num">3,120</td><td class="num">6,240</td></tr>
+      <tr><td>Shelf value at R169 a pack</td><td class="num">R263,640</td><td class="num">R527,280</td><td class="num">R1,054,560</td></tr>
+      <tr><td><b>Retail ROAS</b> (shelf value ÷ spend)</td><td class="num">17.6×</td><td class="num k">35.2×</td><td class="num">70.3×</td></tr>
+      <tr><td>Brand revenue at R124 a pack ex VAT</td><td class="num">R193,440</td><td class="num">R386,880</td><td class="num">R773,760</td></tr>
+      <tr><td><b>Brand ROAS</b> (our revenue ÷ spend)</td><td class="num">12.9×</td><td class="num k">25.8×</td><td class="num">51.6×</td></tr>
+      <tr><td>Gross profit at R29.71 a pack (Year 1)</td><td class="num">R46,348</td><td class="num">R92,696</td><td class="num">R185,393</td></tr>
+      <tr><td><b>ROI, Year 1 margin</b></td><td class="num pos">+209%</td><td class="num pos">+518%</td><td class="num pos">+1,136%</td></tr>
+      <tr><td><b>ROI, Year 2 margin</b> (R42.16 a pack)</td><td class="num pos">+338%</td><td class="num pos">+777%</td><td class="num pos">+1,654%</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><b>What has to be true.</b> The ads drive about 4,000 clicks and follows a month. Even if 15% of them buy on Sixty60, that is roughly 600 packs. Every scenario above needs most of its lift from people who see the ads and then buy on the shelf, so the scenarios count the whole store lift during the campaign, not only Sixty60 orders.</li>
+    <li><b>Brand ROAS is the honest one.</b> Retail ROAS counts Checkers' margin and VAT; brand ROAS counts what we invoice. Break-even sits at a brand ROAS of 4.2× in Year 1 and 2.9× in Year 2.</li>
+    <li><b>How we will know.</b> Stores in the 15 targeted Sixty60 towns against stores outside them, month on month. If the gap between them is smaller than 0.3 packs per store per week, the spend is not paying and the budget comes down.</li>
+    <li><b>Source:</b> 4-pack price, R744 a case wholesale, cost of goods (76.04% Year 1, 66% Year 2), 360 stores, the 1,109-case summer baseline and the R15,000 brand marketing line all come from the Doña Fuego brand pro forma. The per-store lift is Johannes's planning target.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="rules">
+  <h2 id="rules">Compliance</h2>
+  <ul>
+    <li>Every ad set is 18-plus; everyone in frame is over 25.</li>
+    <li>"Not for sale to persons under the age of 18. Drink responsibly." is on every image, at the end of every caption and on the last frame of every Reel. That is the wording the ARB alcohol code and the ARA code use.</li>
+    <li>No cars, no driving, no competitor bottles, no sport, no link between drinking and social or sexual success, no "drink more" claims, in line with Meta's alcohol policy and the ARA code.</li>
+    <li>Privacy policy for the Meta app is published at investdonafuego.vercel.app/privacy, with you named as Information Officer.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="sign">
+  <h2 id="sign">Sign-off</h2>
+  <div class="sign">
+    <ul class="checks">
+      <li><span class="box"></span><span>Strategy and R15,000 a month budget split approved.</span></li>
+      <li><span class="box"></span><span>16 Shop ads approved as shown: images, copy, R169 price and Checkers links.</span></li>
+      <li><span class="box"></span><span>Signed photo release from the Sixty60 rider in ad set 4, before those two ads go live.</span></li>
+      <li><span class="box"></span><span>Follow Reel concept approved; finished cuts to come back before they run.</span></li>
+      <li><span class="box"></span><span>KPIs, pause rules and the rate-of-sale target approved.</span></li>
+      <li><span class="box on" aria-label="Done">✓</span><span class="done">Ad previews cleared by Checkers (Carina Britz, Francois Botha), 15 October 2026.</span></li>
+      <li><span class="box"></span><span>Rename to @donafuego and Doña Fuego, with donafuego.co.za as the website.</span></li>
+    </ul>
+    <p>Changes, if any:</p>
+    <div class="line"></div>
+    <div class="lines">
+      <div><div class="line"></div><span>Danielle Schoeman</span></div>
+      <div><div class="line"></div><span>Date</span></div>
+    </div>
+    <p class="note">Or reply to Johannes with "Approved" or the changes you want. Once approved: the card goes on the account, the 16 ads are switched on in the Shop campaign, Follow goes live as the Reels clear, and the first readout lands the following Monday.</p>
+  </div>
+</section>
+
+</main>
+<footer><span>Doña Fuego · Cooler Box campaign</span><span>Not for sale to persons under the age of 18. Drink responsibly.</span></footer>
+</body>
+</html>
